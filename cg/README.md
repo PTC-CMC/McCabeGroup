@@ -6,4 +6,4 @@ Tabulated potentials from MSIBI go here
 
 # Other folders
 Molecule prototypes that specify coordinates,
-masses, bonds, angles, charges, types
+masses, bonds, angles, charges, beadtypes in an XML file 
