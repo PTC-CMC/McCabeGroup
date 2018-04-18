@@ -1,0 +1,35 @@
+topo readlammpsdata cer2.lammpsdata
+topo guessatom lammps data
+mol reanalyze 0
+mol addfile stretch.lammpstrj autobonds off waitfor all
+
+mol delrep 0 0
+
+mol addrep top
+mol modselect 0 0 "not type 1 2 9 10 11"
+mol modstyle 0 0 CPK
+mol modmaterial 0 0 AOEdgy
+mol modcolor 0 0 Element
+
+mol addrep top
+mol modselect 1 0 "type 1 2"
+mol modstyle 1 0 CPK
+mol modmaterial 1 0 AOEdgy
+mol modcolor 1 0 Element
+
+axes location off
+scale by 3
+display ambientocclusion on
+pbc wrap -center origin -all -compound residue
+
+# alter materials
+material change ambient AOEdgy 0.110000
+material change diffuse AOEdgy 1.000000
+material change specular AOEdgy 0.040000
+material change shininess AOEdgy 0.000000
+material change opacity AOEdgy 1.000000
+material change outline AOEdgy 2.980000
+material change outlinewidth AOEdgy 0.540000
+material change transmode AOEdgy 0.000000
+
+pbc box -center origin -color black

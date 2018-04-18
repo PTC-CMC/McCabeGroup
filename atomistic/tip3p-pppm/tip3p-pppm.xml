@@ -1,0 +1,31 @@
+<prototype>
+  <configuration>
+    <type>
+1,O
+2,H
+2,H
+</type>
+    <position>
+0.00000  0.00000  0.00000 
+-0.75800 0.59000  0.00000 
+0.75800  0.59000  0.00000 
+</position>
+    <bond>
+1 0 1
+1 0 2
+</bond>
+    <angle>
+1 1 0 2
+</angle>
+    <mass>
+15.9994
+1.0080
+1.0080
+</mass>
+    <charge>
+-0.830
+0.415
+0.415
+</charge>
+  </configuration>
+</prototype>
