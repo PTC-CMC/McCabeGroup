@@ -1,2 +1,2 @@
 # Real units
-Distance (Angstrom), energy (kcal)
+Distance (Angstrom), energy (kcal/mol)
