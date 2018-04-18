@@ -1,0 +1,25 @@
+; made by Tim on October 12, 2015
+; tip3p
+;
+
+[ moleculetype]
+; name nrexcl
+  tip3p 2
+
+[ atoms ]
+; nr type resnr residue atom cgnr charge
+1 OW 1 tip3p O1 1 -0.830000
+2 HW 1 tip3p H2 2 0.415000
+3 HW 1 tip3p H3 3 0.415000
+
+[ bonds ]
+; ai aj funct c0 c1
+1 2 1 0.09572 376560.0
+1 3 1 0.09572 376560.0
+
+[ angles ]
+; ai aj ak funct c0 c1
+2 1 3 1 104.52 460.24
+
+[ dihedrals ]
+; ai aj ak al funct c0 c1 c2

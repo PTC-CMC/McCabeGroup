@@ -1,0 +1,23 @@
+#define _FF_CHARMM
+#include "./ffnonbonded.itp"
+#include "./ffbonded.itp"
+
+#include "./cer-eos-hairpin/cer1.itp"
+#include "./ucer2-hairpin-charmm/ucer2.itp"
+#include "./ucer3-hairpin-charmm/ucer3.itp"
+#include "./ucer6-hairpin/ucer6.itp"
+#include "./ecer2-hairpin/ecer2.itp"
+#include "./ecer3-hairpin/ecer3.itp"
+#include "./ecer6-hairpin/ecer6.itp"
+
+#include "./ffa-headgroup/fhead.itp"
+#include "./c24ffa/ffa24.itp"
+#include "./c16ffa/ffa16.itp"
+
+#include "./cholesterol/chol.itp"
+#include "./chol-headgroup/chead.itp"
+
+#include "./dppc/dppc.itp"
+#include "./dspc/dspc.itp"
+
+#include "./tip3p/tip3p.itp"
