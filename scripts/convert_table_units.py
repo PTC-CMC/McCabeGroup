@@ -8,6 +8,7 @@ import os
 ## Distance = 6 Angstroms
 ## Energy = 0.1 kcal/mol
 ## Force = Energy/Distance
+## Tabulated potnetials: distance (col0), energy (col1), force (col2)
 #############################
 TABLE_ENERGY_TO_KCAL = 0.1
 TABLE_DISTANCE_TO_A = 6
