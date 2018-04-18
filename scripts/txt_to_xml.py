@@ -1,5 +1,5 @@
 from lxml import etree
-import xml_utils
+import scripts.xml_utils as xml_utils
 
 #################################
 ## This is a short code used to convert text files containing molecule parameters
