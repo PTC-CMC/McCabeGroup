@@ -7,6 +7,8 @@ import pdb
 ## While the prototype.xml may not be properly aligned,
 ## the resulting mBuild compound is aligned
 ## Tail tip is origin, headgroup at highest Z coordinate
+## molecule_name is the name of the residue that gets used in mbuild and gromacs
+## so ensure molecule_name matches the itp file
 #######################
 xmlfile = "c16ffa.xml"
 molecule_name = "ffa16"
