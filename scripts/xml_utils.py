@@ -152,8 +152,8 @@ def align_cmpd(cmpd, align_indices):
     Parameters
     ----------
     cmpd : mb.Compound
-    align_indices : 3-tuple
-        Cmpd.children indices for axis transform
+    align_indices : 2-tuple
+        Cmpd.children indices to define molecule vector
 
     Returns
     -------
@@ -166,31 +166,22 @@ def align_cmpd(cmpd, align_indices):
     Molecule aligned parallel to Z-axis
     """
     aligned_cmpd = mb.clone(cmpd)
-    # First put the molecule on the XZ plane
-    mb.z_axis_transform(aligned_cmpd, 
-            new_origin=aligned_cmpd.children[align_indices[0]], 
-            point_on_z_axis=aligned_cmpd.children[align_indices[1]],
-            point_on_zx_plane=aligned_cmpd.children[align_indices[2]])
     
-    
-    # Cross product
-    cmpd_vector = aligned_cmpd.children[-1].pos - aligned_cmpd.children[0].pos
-    cmpd_mag = np.sqrt(np.dot(cmpd_vector, cmpd_vector))
+    # Define vectors
+    cmpd_vector = aligned_cmpd.children[align_indices[1]].pos - aligned_cmpd.children[0].pos
     ref_vector = [0,0,1]
-    ref_mag  = 1
-    rotation_vector = np.cross(cmpd_vector, ref_vector)
-    sin_theta = rotation_vector/ (cmpd_mag * ref_mag)
-    theta = np.arcsin(sin_theta)
-
+    
+    # Utilize dot products to compute angle between vectors
+    # Utilize cross products to compute the vector normal to the
+    # plane formed by the two vectors
+    theta = mb.coordinate_transform.angle(cmpd_vector, ref_vector)
+    normal = np.cross(cmpd_vector, ref_vector)
 
     # Rotate around a vector
-    aligned_cmpd.rotate(theta[0], [1,0,0])
-    aligned_cmpd.rotate(theta[1], [0,1,0])
-    aligned_cmpd.rotate(theta[2], [0,0,1])
+    aligned_cmpd.rotate(theta, normal)
 
     # Translate back to origin
     aligned_cmpd.translate(-1*aligned_cmpd.children[align_indices[0]].pos)
-    
 
     return aligned_cmpd
     
