@@ -10,8 +10,14 @@ import pdb
 #######################
 xmlfile = "c16ffa.xml"
 molecule_name = "ffa16"
+structure_file = molecule_name + ".mol2"
 cmpd = xml_utils.compound_from_xml(xmlfile, a_to_nm=True, name=molecule_name)
 
 # Perform aligning 
 cmpd = xml_utils.align_cmpd(cmpd, align_indices=[0, int(cmpd.n_particles/2),-1])
-cmpd.save('{}.mol2'.format(molecule_name), overwrite=True, residues=[molecule_name])
+
+# Save structure and bonding information
+cmpd.save('{}'.format(structure_file), overwrite=True, residues=[molecule_name])
+
+# Write compound.py file
+xml_utils.write_compound_py(molecule_name, structure_file)
