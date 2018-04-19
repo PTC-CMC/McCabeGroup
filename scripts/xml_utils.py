@@ -3,6 +3,11 @@ import xml.etree.ElementTree as ET
 
 import mbuild as mb
 
+#########################
+## These are some useful python modules for converting between prototypes 
+## that have been stored in a variety of formats
+########################
+
 ATOMTYPES_FILE_PATH = '/raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/types.txt'
 def ATOMTYPES_FILE():
     return ATOMTYPES_FILE_PATH
