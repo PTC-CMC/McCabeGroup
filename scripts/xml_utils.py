@@ -194,5 +194,21 @@ def align_cmpd(cmpd, align_indices):
 
     return aligned_cmpd
     
-    
-    
+def write_compound_py(molecule_name, structure_file):
+    """ Write compound python module for mbuild import
+
+    Parameters
+    ----------
+    molecule_name : str
+        Name of molecule
+    structure_file : str
+        filename to structure that contains xyz and bonding
+        """
+    with open('{}.py'.format(molecule_name), 'w') as f:
+        f.write("""import mbuild as mb
+class {0}(mb.Compound):
+    def __init__(self):
+        super({0},self).__init__()
+        mb.load('{1}', compound=self, relative_to_module=self.__module__)""".format(
+            molecule_name, structure_file))
+
