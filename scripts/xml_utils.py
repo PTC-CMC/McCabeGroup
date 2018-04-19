@@ -189,7 +189,7 @@ def align_cmpd(cmpd, align_indices):
     aligned_cmpd.rotate(theta[2], [0,0,1])
 
     # Translate back to origin
-    aligned_cmpd.translate(-1*aligned_cmpd.children[0].pos)
+    aligned_cmpd.translate(-1*aligned_cmpd.children[align_indices[0]].pos)
     
 
     return aligned_cmpd
