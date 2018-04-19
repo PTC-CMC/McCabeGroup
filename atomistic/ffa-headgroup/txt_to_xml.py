@@ -7,7 +7,8 @@ from lxml import etree as ET
 ## that can then be printed in XML format
 ##################################
 
-ATOMTYPES_FILE = '/raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/types.txt'
+ATOMTYPES_FILE = '/home/ayang41/McCabeGroup/atomistic/types.txt'
+
 
 def _parse_type_dict(filename, zero_index=False):
     """ Read atomtypes into a list
