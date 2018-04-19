@@ -1,0 +1,20 @@
+@<TRIPOS>MOLECULE
+fhead
+5 4 1 0 1
+SMALL
+NO_CHARGES
+@<TRIPOS>CRYSIN
+    5.0127     7.4759     7.3926    90.0000    90.0000    90.0000  1  1
+@<TRIPOS>ATOM
+       1 HEL1         0.0000     0.0000     0.0000 HEL1          1 fhead   
+       2 CL           0.0119    -0.6703     1.3328 CL            1 fhead   
+       3 OCL         -0.0000    -2.0066     1.3702 OCL           1 fhead   
+       4 HL          -0.0008    -2.4759     0.5126 HL            1 fhead   
+       5 OBL          0.0000     0.0000     2.3926 OBL           1 fhead   
+@<TRIPOS>BOND
+       1        1        2 1
+       2        4        3 1
+       3        2        5 1
+       4        2        3 1
+@<TRIPOS>SUBSTRUCTURE
+       1 fhead           1 RESIDUE    0 **** ROOT      0
