@@ -1,3 +1,5 @@
+import numpy as np
+
 from lxml import etree
 import xml.etree.ElementTree as ET
 
@@ -82,7 +84,7 @@ def write_xml_elements(element, filename):
         line = line.rstrip()
         element.text += "{}\n".format(line)
 
-def compound_from_xml(xmlfile, a_to_nm=True):
+def compound_from_xml(xmlfile, a_to_nm=True, **kwargs):
     """ Generate an mBuild compound from an xml file
     
     Parameters
@@ -91,6 +93,8 @@ def compound_from_xml(xmlfile, a_to_nm=True):
         name of xml file
     a_to_nm : bool, default True
         If True, convert positions coordinates to nm from Angstrom
+    **kwargs : 
+        to pass to the cmpd that gets returned
 
     Returns
     -------
@@ -115,7 +119,7 @@ def compound_from_xml(xmlfile, a_to_nm=True):
     dihedral_element = configuration.findall('dihedral')[0]
     improper_element = configuration.findall('improper')[0]
     
-    cmpd = mb.Compound()
+    cmpd = mb.Compound(**kwargs)
     # Generate mbuild particles for each type
     all_types = type_element.text.strip('\n').split('\n')
     
@@ -141,3 +145,54 @@ def compound_from_xml(xmlfile, a_to_nm=True):
         cmpd.add_bond((cmpd.children[int(i)], cmpd.children[int(j)]))
     
     return cmpd
+
+def align_cmpd(cmpd, align_indices):
+    """ Align a compound
+
+    Parameters
+    ----------
+    cmpd : mb.Compound
+    align_indices : 3-tuple
+        Cmpd.children indices for axis transform
+
+    Returns
+    -------
+    aligned_cmpd : mb.Compound
+
+    Notes
+    -----
+    Tail tip (first particle)is centered at origin.
+    Headgroup (last particle) at most positive Z.
+    Molecule aligned parallel to Z-axis
+    """
+    aligned_cmpd = mb.clone(cmpd)
+    # First put the molecule on the XZ plane
+    mb.z_axis_transform(aligned_cmpd, 
+            new_origin=aligned_cmpd.children[align_indices[0]], 
+            point_on_z_axis=aligned_cmpd.children[align_indices[1]],
+            point_on_zx_plane=aligned_cmpd.children[align_indices[2]])
+    
+    
+    # Cross product
+    cmpd_vector = aligned_cmpd.children[-1].pos - aligned_cmpd.children[0].pos
+    cmpd_mag = np.sqrt(np.dot(cmpd_vector, cmpd_vector))
+    ref_vector = [0,0,1]
+    ref_mag  = 1
+    rotation_vector = np.cross(cmpd_vector, ref_vector)
+    sin_theta = rotation_vector/ (cmpd_mag * ref_mag)
+    theta = np.arcsin(sin_theta)
+
+
+    # Rotate around a vector
+    aligned_cmpd.rotate(theta[0], [1,0,0])
+    aligned_cmpd.rotate(theta[1], [0,1,0])
+    aligned_cmpd.rotate(theta[2], [0,0,1])
+
+    # Translate back to origin
+    aligned_cmpd.translate(-1*aligned_cmpd.children[0].pos)
+    
+
+    return aligned_cmpd
+    
+    
+    
