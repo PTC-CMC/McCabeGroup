@@ -7,6 +7,8 @@ from itertools import product, groupby
 
 #######################
 ## This is a collection of functions used to build bilayers
+## The Bilayer class may not be applicable for particular cases,
+## But the helper functions in this module should still be useful
 ######################
 class Bilayer(mb.Compound):
     """ A general bilayer recipe
@@ -14,23 +16,23 @@ class Bilayer(mb.Compound):
     Parameters
     ----------
     leaflet_info : array, n x 3
+        Each row corresponds to a molecule
+        First column is the mB.compound
+        Second column is the number of that molecule
+        Third column is a z-offset specific to molecules of that type
     apl : float, area per lipid (nm^2)
     n_x : int, number of lipids in x direction
     n_y : int, number of lipids in y direction
-    tilt_angle : float, tilt angle
+    tilt_angle : float, tilt angle (rad)
     solvent : mb.Compound()
-    solvent_density : float, kg/m^3
+    solvent_density : float, (kg/m^3)
     n_solvent_per_lipid : int
-    rando_orientation : float
-
-    Returns
-    -------
-    system : mb.Compound()
+    random_spin : float, (rad)
 
     Notes
     -----
     This is a convenient, umbrella function, but specific bilayers should 
-    still be able to utilize these child functions
+    still be able to utilize these helper functions
 
     """
     def __init__(self, leaflet_info, apl=0.5, n_x=8, n_y=8, tilt_angle=10,
@@ -53,7 +55,7 @@ class Bilayer(mb.Compound):
         bot_layer = random_orientation(bot_layer, random_spin)
         
         self.add(top_layer)
-        #self.add(bot_layer)
+        self.add(bot_layer)
 
 
 
@@ -64,17 +66,17 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
     Parameters
     ---------
     n_x : int
-        2D grid dimension
+        Number of lipids in x direction
     n_y : int
-        2D grid dimension
+        Number of lipids in y direction
     leaflet_info : n x 3 array
         Each row corresponds to a molecule
-        First column is the mB compound
-        Second column is the number of that lipid
+        First column is the mB.compound
+        Second column is the number of that molecule
         Third column is a z-offset specific to molecules of that type
-    tilt_angle : float
+    tilt_angle : float (rad)
         tilt angle (spun around y-axis)
-    spacing : float
+    spacing : float (nm)
         spacing between leaflets, based on area per lipid
     random_z_displacement : float (nm)
         Randomly offset molecules by a small amount
@@ -86,6 +88,7 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
       
     """
 
+    _validate_leaflet_info(leaflet_info, n_x, n_y)
 
     leaflet = mb.Compound()
 
@@ -93,7 +96,6 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
     ordered_pairs = []
     for i, j in product(range(n_x), range(n_y)):
         ordered_pairs.append((i,j))
-
 
     # Randomly assign ordered pairs to each lipid
     # based on the way lipids is set, all of one molecule is listed first
@@ -128,7 +130,10 @@ def reflect(leaflet):
     """ Reflect leaflet across XY plane """
     for particle in leaflet.particles():
         particle.pos[2] = -particle.pos[2]
-    #leaflet.spin(np.pi, [0,1,0])
+
+    # The reflection will also invert the direction of the tilt, 
+    # so spin the leaflet to avoid the cross-tilted pattern
+    leaflet.spin(np.pi, [0,0,1])
     return leaflet
 
 def solvate_leaflet(leaflet, solvent, **kwargs):
@@ -193,9 +198,23 @@ def write_gmx_topology(system, filename, header=""):
             molecules.add(p.parent)
 
     with open(filename,'w') as f:
-        f.write("{}\n".format(header))
+        f.write("{}\n\n".format(header))
         f.write("[ system ]\n")
-        f.write("Bilayer system constructed using mBuild\n")
+        f.write("mBuild Bilayer System\n\n")
         f.write("[ molecules ]\n")
         f.write("\n".join(["{:<8s} {}".format(name, sum(1 for _ in g))
             for name,g in groupby([c.name for c in molecules])]))
+
+def _validate_leaflet_info(leaflet_info, n_x, n_y):
+    """ Validate that the leaflet info agrees with the number of lipids in leaflet"""
+    predicted = 0
+    for molecule_type in leaflet_info:
+        assert type(molecule_type[1]) is int, \
+                "{} requires integer number of molecules".format(molecule_type[0].name)
+        predicted += molecule_type[1]
+
+    assert type(n_x) is int and type(n_y) is int, "n_x and n_y must be integers"
+
+    assert abs(predicted - n_lipids) < 1, \
+        "Leaflet information incorrect, {} molecules needed but {} molecules specified".format(n_lipids, predicted)
+
