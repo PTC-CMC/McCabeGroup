@@ -98,7 +98,7 @@ def solvate_leaflet(leaflet, solvent, **kwargs):
     solvent_box = mb.fill_box(solvent, **kwargs)
     top_of_leaflet = np.max(leaflet.xyz[:,2])
     bot_of_solvent = np.min(solvent.xyz[:,2])
-    solvent_box.translate([0,0, top_of_leaflet - bot_of_solvent])
+    solvent_box.translate([0,0, 0.1 + top_of_leaflet - bot_of_solvent])
 
     leaflet.add(solvent_box)
     return leaflet
