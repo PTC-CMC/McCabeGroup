@@ -167,8 +167,12 @@ def align_cmpd(cmpd, align_indices):
     """
     aligned_cmpd = mb.clone(cmpd)
     
+    # Translate back to origin
+    aligned_cmpd.translate(-1*aligned_cmpd.children[align_indices[0]].pos)
+    
     # Define vectors
-    cmpd_vector = aligned_cmpd.children[align_indices[1]].pos - aligned_cmpd.children[0].pos
+    cmpd_vector = (aligned_cmpd.children[align_indices[1]].pos
+                  -aligned_cmpd.children[align_indices[0]].pos)
     ref_vector = [0,0,1]
     
     # Utilize dot products to compute angle between vectors
