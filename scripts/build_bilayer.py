@@ -3,10 +3,17 @@ import numpy as np
 import mbuild as mb
 
 import scripts.bilayer as bilayer
+
+# Import statements for molecule prototypes
 import atomistic.ecer2_hairpin.ecer2 as ecer2
 import atomistic.c24ffa.ffa24 as ffa24
 import atomistic.tip3p.tip3p as tip3p
 
+###################
+## Sample script to construct and save an mBuild Bilayer for Gromacs
+####################
+
+# Bilayer specifications
 filename = 'test'
 path_to_ff = "#include /raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/forcefield.itp"
 apl = 0.50
