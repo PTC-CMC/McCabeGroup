@@ -168,8 +168,7 @@ def align_cmpd(cmpd, align_indices):
     aligned_cmpd = mb.clone(cmpd)
     
     # Define vectors
-    cmpd_vector = aligned_cmpd.children[align_indices[1]].pos 
-                - aligned_cmpd.children[0].pos
+    cmpd_vector = aligned_cmpd.children[align_indices[1]].pos - aligned_cmpd.children[0].pos
     ref_vector = [0,0,1]
     
     # Utilize dot products to compute angle between vectors
@@ -183,6 +182,11 @@ def align_cmpd(cmpd, align_indices):
 
     # Translate back to origin
     aligned_cmpd.translate(-1*aligned_cmpd.children[align_indices[0]].pos)
+
+    # If the compound is aligned along negative Z, reflect across XY plane
+    if aligned_cmpd.pos[2] < 0:
+        for particle in aligned_cmpd.particles():
+            particle.pos[2] = -particle.pos[2]
 
     return aligned_cmpd
     
