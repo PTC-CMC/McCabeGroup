@@ -11,29 +11,18 @@ import atomistic.tip3p.tip3p as tip3p
 apl = 0.50
 tilt_angle = 15
 solvent_density = 900
+random_spin=np.deg2rad(15)
 n_x = 8
 n_y = 8
 n_solvent_per_lipid = 20
 leaflet_info = [ (ecer2.ecer2(), 40, 0),
                  (ffa24.ffa24(), 24, -0.5)
                  ]
-
-top_layer = bilayer.make_leaflet(leaflet_info, spacing=np.sqrt(apl),
-        n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
-top_layer = bilayer.solvate_leaflet(top_layer, tip3p.HOH(), 
-        density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
-top_layer = bilayer.random_orientation(top_layer, np.deg2rad(15))
-
-bot_layer = bilayer.make_leaflet(leaflet_info, spacing=np.sqrt(apl), 
-        n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
-bot_layer = bilayer.solvate_leaflet(bot_layer, tip3p.HOH(), 
-        density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
-bot_layer = bilayer.reflect(bot_layer)
-bot_layer = bilayer.random_orientation(bot_layer, np.deg2rad(15))
-
-system = mb.Compound()
-system.add(top_layer)
-system.add(bot_layer)
+system = bilayer.build(apl=apl, tilt_angle=tilt_angle,
+        solvent=tip3p.HOH(), solvent_density=solvent_density, 
+        random_spin=random_spin,
+        n_x=n_x, n_y=n_y, n_solvent_per_lipid=n_solvent_per_lipid,
+        leaflet_info=leaflet_info)
 
 system = bilayer.translate_to_positive_octant(system)
 

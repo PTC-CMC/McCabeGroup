@@ -8,6 +8,54 @@ from itertools import product, groupby
 #######################
 ## This is a collection of functions used to build bilayers
 ######################
+savers = {'.gro': write_gro
+        }
+def build(leaflet_info, apl=0.5, n_x=8, n_y=8, tilt_angle=10,
+        solvent=None, solvent_density=900, n_solvent_per_lipid=20,
+        random_spin=10):
+    """ Build a bilayer
+
+    Parameters
+    ----------
+    leaflet_info : array, n x 3
+    apl : float, area per lipid (nm^2)
+    n_x : int, number of lipids in x direction
+    n_y : int, number of lipids in y direction
+    tilt_angle : float, tilt angle
+    solvent : mb.Compound()
+    solvent_density : float, kg/m^3
+    n_solvent_per_lipid : int
+    rando_orientation : float
+
+    Returns
+    -------
+    system : mb.Compound()
+
+    Notes
+    -----
+    This is a convenient, umbrella function, but specific bilayers should 
+    still be able to utilize these child functions
+    """
+
+    top_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl),
+            n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
+    top_layer = solvate_leaflet(top_layer, solvent, 
+            density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+    top_layer = random_orientation(top_layer, random_spin)
+    
+    bot_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl), 
+            n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
+    bot_layer = solvate_leaflet(bot_layer, solvent, 
+            density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+    bot_layer = reflect(bot_layer)
+    bot_layer = random_orientation(bot_layer, random_spin)
+    
+    system = mb.Compound()
+    system.add(top_layer)
+    system.add(bot_layer)
+
+    return system
+
 
 def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0, 
         random_z_displacement=0):
