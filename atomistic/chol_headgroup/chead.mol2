@@ -4,25 +4,25 @@ chead
 SMALL
 NO_CHARGES
 @<TRIPOS>CRYSIN
-    8.3663     8.1560     7.9973    90.0000    90.0000    90.0000  1  1
+    7.3557     8.3104     8.1123    90.0000    90.0000    90.0000  1  1
 @<TRIPOS>ATOM
-       1 CTL2         0.0000     0.0000     0.0000 CTL2          1 chead   
-       2 HAL2        -0.6062     0.3417    -0.8704 HAL2          1 chead   
-       3 OHL          1.3295     0.5182    -0.1125 OHL           1 chead   
-       4 HOL          1.3284     1.4671    -0.1448 HOL           1 chead   
-       5 HAL2        -0.0000    -1.5052     0.0495 HAL2          1 chead   
-       6 HAL3        -2.0367     0.0056     1.4349 HAL3          1 chead   
-       7 CTL3        -0.6043     0.5389     1.2759 CTL3          1 chead   
-       8 HAL3        -0.5595     1.6508     1.3260 HAL3          1 chead   
-       9 HAL3         0.0000     0.1401     2.1269 HAL3          1 chead   
+       1 CTL2         0.0000     0.0000    -0.0000 CTL2          1 chead   
+       2 HAL2        -1.0120    -0.2840     0.3702 HAL2          1 chead   
+       3 OHL          0.9716    -0.9126     0.5217 OHL           1 chead   
+       4 HOL          0.9700    -0.9127     1.4711 HOL           1 chead   
+       5 HAL2         0.0000     0.0000    -1.5060 HAL2          1 chead   
+       6 HAL3        -0.6758     2.3977    -0.0416 HAL3          1 chead   
+       7 CTL3         0.3465     1.3844     0.4966 CTL3          1 chead   
+       8 HAL3         0.4360     1.4235     1.6063 HAL3          1 chead   
+       9 HAL3         1.3437     1.6532     0.0701 HAL3          1 chead   
 @<TRIPOS>BOND
        1        4        3 1
-       2        3        1 1
-       3        8        7 1
-       4        9        7 1
+       2        2        1 1
+       3        5        1 1
+       4        3        1 1
        5        1        7 1
-       6        5        1 1
-       7        2        1 1
+       6        7        8 1
+       7        7        9 1
        8        6        7 1
 @<TRIPOS>SUBSTRUCTURE
        1 chead           1 RESIDUE    0 **** ROOT      0

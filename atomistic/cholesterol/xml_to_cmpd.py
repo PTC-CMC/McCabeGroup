@@ -14,10 +14,12 @@ structure_file = molecule_name + ".mol2"
 cmpd = xml_utils.compound_from_xml(xmlfile, a_to_nm=True, name=molecule_name)
 
 # Perform aligning 
-cmpd = xml_utils.align_cmpd(cmpd, align_indices=[0, -1])
+cmpd = xml_utils.align_cmpd(cmpd, align_indices=[70, 2])
 
 # Save structure and bonding information
 cmpd.save('{}'.format(structure_file), overwrite=True, residues=[molecule_name])
+
+
 
 # Write compound.py file
 xml_utils.write_compound_py(molecule_name, structure_file)
