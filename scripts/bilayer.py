@@ -53,6 +53,7 @@ class Bilayer(mb.Compound):
                 density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
         bot_layer = reflect(bot_layer)
         bot_layer = random_orientation(bot_layer, random_spin)
+        bot_layer.translate([0,0,-0.2])
         
         self.add(top_layer)
         self.add(bot_layer)
