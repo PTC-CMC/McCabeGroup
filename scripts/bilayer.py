@@ -65,7 +65,8 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
             # Apply z_offset
             z_offset = lipid_type[2]
 
-            # Apply APL and z_offset to identify the position for the molecule in the grid
+            # Apply APL and z_offset to identify the position for the 
+            # molecule in the grid
             position = [i * spacing, j * spacing, z_offset + 
                         (-1 * np.random.random() * random_z_displacement)]
             molecule_to_add.translate(position)
