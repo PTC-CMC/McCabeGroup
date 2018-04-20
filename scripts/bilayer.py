@@ -37,23 +37,23 @@ class Bilayer(mb.Compound):
         solvent=None, solvent_density=900, n_solvent_per_lipid=20,
         random_spin=10):
 
-    super(Bilayer, self).__init__()
+        super(Bilayer, self).__init__()
 
-    top_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl),
-            n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
-    top_layer = solvate_leaflet(top_layer, solvent, 
-            density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
-    top_layer = random_orientation(top_layer, random_spin)
-    
-    bot_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl), 
-            n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
-    bot_layer = solvate_leaflet(bot_layer, solvent, 
-            density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
-    bot_layer = reflect(bot_layer)
-    bot_layer = random_orientation(bot_layer, random_spin)
-    
-    self.add(top_layer)
-    self.add(bot_layer)
+        top_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl),
+                n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
+        top_layer = solvate_leaflet(top_layer, solvent, 
+                density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+        top_layer = random_orientation(top_layer, random_spin)
+        
+        bot_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl), 
+                n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
+        bot_layer = solvate_leaflet(bot_layer, solvent, 
+                density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+        bot_layer = reflect(bot_layer)
+        bot_layer = random_orientation(bot_layer, random_spin)
+        
+        self.add(top_layer)
+        #self.add(bot_layer)
 
 
 
@@ -128,6 +128,7 @@ def reflect(leaflet):
     """ Reflect leaflet across XY plane """
     for particle in leaflet.particles():
         particle.pos[2] = -particle.pos[2]
+    #leaflet.spin(np.pi, [0,1,0])
     return leaflet
 
 def solvate_leaflet(leaflet, solvent, **kwargs):
@@ -145,7 +146,7 @@ def solvate_leaflet(leaflet, solvent, **kwargs):
 
     solvent_box = mb.fill_box(solvent, **kwargs)
     top_of_leaflet = np.max(leaflet.xyz[:,2])
-    bot_of_solvent = np.min(solvent.xyz[:,2])
+    bot_of_solvent = np.min(solvent_box.xyz[:,2])
     solvent_box.translate([0,0, 0.1 + top_of_leaflet - bot_of_solvent])
 
     leaflet.add(solvent_box)
@@ -193,5 +194,8 @@ def write_gmx_topology(system, filename, header=""):
 
     with open(filename,'w') as f:
         f.write("{}\n".format(header))
+        f.write("[ system ]\n")
+        f.write("Bilayer system constructed using mBuild\n")
+        f.write("[ molecules ]\n")
         f.write("\n".join(["{:<8s} {}".format(name, sum(1 for _ in g))
             for name,g in groupby([c.name for c in molecules])]))
