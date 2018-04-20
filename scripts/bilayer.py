@@ -1,8 +1,9 @@
 import mbuild as mb
 from collections import OrderedDict
+from oset import oset as OrderedSet
 import numpy as np
 import sys
-from itertools import product
+from itertools import product, groupby
 
 #######################
 ## This is a collection of functions used to build bilayers
@@ -76,10 +77,9 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
 
 def reflect(leaflet):
     """ Reflect leaflet across XY plane """
-    new_leaflet = mb.clone(leaflet)
-    for particle in new_leaflet.particles():
+    for particle in leaflet.particles():
         particle.pos[2] = -particle.pos[2]
-    return new_leaflet
+    return leaflet
 
 def solvate_leaflet(leaflet, solvent, **kwargs):
     """ Solvate a leaflet 
@@ -110,3 +110,39 @@ def translate_to_positive_octant(system):
                 -1*np.min(system.xyz[:,2])]
     system.translate(to_translate)
     return system
+
+def random_orientation(leaflet, angle):
+    """ Randomly spin lipids
+
+    Parameters
+    ----------
+    leaflet : mB.Compound()
+    angle : float, radians
+    """
+    for cmpd in leaflet.children:
+        cmpd.spin((angle * np.random.random()) - (angle / 2), [0,0,1])
+    return leaflet
+
+def write_gmx_topology(system, filename, header=""):
+    """ Write out gmx topology file 
+
+    Parameters
+    ----------
+    system : mb.Compound()
+    filename : str
+    header : str, optional
+        Header string for include statements etc
+
+    Notes
+    -----
+    Molecule names are based on the one-level-up parents of the particles
+        """
+    molecules = OrderedSet()
+    for p in system.particles():
+        if p.parent is not None:
+            molecules.add(p.parent)
+
+    with open(filename,'w') as f:
+        f.write("{}\n".format(header))
+        f.write("\n".join(["{:<8s} {}".format(name, sum(1 for _ in g))
+            for name,g in groupby([c.name for c in molecules])]))
