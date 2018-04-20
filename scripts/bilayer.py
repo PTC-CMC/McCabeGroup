@@ -95,9 +95,18 @@ def solvate_leaflet(leaflet, solvent, **kwargs):
     Solvents placed at highest Z coordinate """
 
     solvent_box = mb.fill_box(solvent, **kwargs)
-    top_of_leaflet = np.max([p.pos[2] for p in leaflet.particles()])
-    bot_of_solvent = np.min([p.pos[2] for p in solvent_box.particles()])
+    top_of_leaflet = np.max(leaflet.xyz[:,2])
+    bot_of_solvent = np.min(solvent.xyz[:,2])
     solvent_box.translate([0,0, top_of_leaflet - bot_of_solvent])
 
     leaflet.add(solvent_box)
-    return layer
+    return leaflet
+
+def translate_to_positive_octant(system):
+    """ Shift all coordinates to positive xyz,
+    useful for gromacs simulations"""
+    to_translate = [-1*np.min(system.xyz[:,0]),
+                -1*np.min(system.xyz[:,1]),
+                -1*np.min(system.xyz[:,2])]
+    system.translate(to_translate)
+    return system
