@@ -18,7 +18,7 @@ n_solvent_per_lipid = 20
 leaflet_info = [ (ecer2.ecer2(), 40, 0),
                  (ffa24.ffa24(), 24, -0.5)
                  ]
-system = bilayer.build(apl=apl, tilt_angle=tilt_angle,
+system = bilayer.Bilayer(apl=apl, tilt_angle=tilt_angle,
         solvent=tip3p.HOH(), solvent_density=solvent_density, 
         random_spin=random_spin,
         n_x=n_x, n_y=n_y, n_solvent_per_lipid=n_solvent_per_lipid,
