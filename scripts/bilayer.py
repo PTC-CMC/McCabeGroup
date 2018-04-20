@@ -8,7 +8,7 @@ from itertools import product
 ## This is a collection of functions used to build bilayers
 ######################
 
-def make_leaflet(n_x=8, n_y=8, lipid_system_info=None, tilt_angle=0, spacing=0, 
+def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0, 
         random_z_displacement=0):
     """ Generate a leaflet by laying down molecules in a 2D grid at random grid points
 
@@ -18,7 +18,7 @@ def make_leaflet(n_x=8, n_y=8, lipid_system_info=None, tilt_angle=0, spacing=0,
         2D grid dimension
     n_y : int
         2D grid dimension
-    lipid_system_info : n x 3 array
+    leaflet_info : n x 3 array
         Each row corresponds to a molecule
         First column is the mB compound
         Second column is the number of that lipid
@@ -50,10 +50,9 @@ def make_leaflet(n_x=8, n_y=8, lipid_system_info=None, tilt_angle=0, spacing=0,
     # based on the way lipids is set, all of one molecule is listed first
     # before getting to the next one
     # Loop through each type of molecule (DSPC, DPPC, etc.)
-    for i, lipid_type in enumerate(lipid_system_info):
-        n_molecule_per_leaflet = int(lipid_type[1]/2)
+    for i, lipid_type in enumerate(leaflet_info):
         # Loop through the system's quantity of that particular molecule
-        for n in range(n_molecule_per_leaflet):
+        for n in range(lipid_type[1]):
             random_index = np.random.randint(0, len(ordered_pairs))
             (i, j) = ordered_pairs.pop(random_index)
 
@@ -73,8 +72,32 @@ def make_leaflet(n_x=8, n_y=8, lipid_system_info=None, tilt_angle=0, spacing=0,
             # Add the new molecule to the leaflet
             leaflet.add(molecule_to_add)
 
-                    
-
-
     return leaflet
 
+def reflect(leaflet):
+    """ Reflect leaflet across XY plane """
+    new_leaflet = mb.clone(leaflet)
+    for particle in new_leaflet.particles():
+        particle.pos[2] = -particle.pos[2]
+    return new_leaflet
+
+def solvate_leaflet(leaflet, solvent, **kwargs):
+    """ Solvate a leaflet 
+
+    Parameters
+    ---------
+    leaflet : mB.Compound()
+    solvent : mB.Compound()
+    **kwargs : for mb.fill_box()
+
+    Notes
+    -----
+    Solvents placed at highest Z coordinate """
+
+    solvent_box = mb.fill_box(solvent, **kwargs)
+    top_of_leaflet = np.max([p.pos[2] for p in leaflet.particles()])
+    bot_of_solvent = np.min([p.pos[2] for p in solvent_box.particles()])
+    solvent_box.translate([0,0, top_of_leaflet - bot_of_solvent])
+
+    leaflet.add(solvent_box)
+    return layer
