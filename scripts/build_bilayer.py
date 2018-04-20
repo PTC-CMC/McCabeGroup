@@ -15,7 +15,7 @@ import atomistic.tip3p.tip3p as tip3p
 
 # Bilayer specifications
 filename = 'test'
-path_to_ff = "#include /raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/forcefield.itp"
+path_to_ff = "#include \"/raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/forcefield.itp\""
 apl = 0.50
 tilt_angle = np.deg2rad(30)
 solvent_density = 900
