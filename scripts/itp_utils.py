@@ -103,27 +103,22 @@ def include_bonds(itplines, cmpd):
             keep_iterating = False
     return cmpd
 
-def coordinates_from_compound(source, sink, a_to_nm=True):
+def coordinates_from_compound(source, sink):
     """ Pull coordinates from source into sink
    
     Parameters
     ----------
     source : mb.Compound()
     sink : mb.Compound()
-    a_to_nm : bool, default True
-        If True, convert positions coordinates to nm from Angstrom
 
     
     """
     source_particles = [p for p in source.particles()]
     sink_particles = [p for p in sink.particles()]
     assert len(source_particles) == len(sink_particles), \
-        "Numboer particles do not match"
+        "Number particles do not match"
     for i, j in zip(source_particles, sink_particles):
-        if a_to_nm:
-            j.xyz = i.xyz / 10
-        else:
-            j.xyz = i.xyz
+        j.xyz = i.xyz
 
     return sink
 
