@@ -132,3 +132,19 @@ def coordinates_from_file(source, sink):
     sink : mb.Compound()
     """
     return coordinates_from_compound(mb.load(source), sink)
+
+def read_section(directive, itplines):
+    all_lines = []
+    i = find_directive(directive, itplines)
+    keep_iterating = True
+    while keep_iterating:
+        i += 1
+        if itplines[i].strip():
+            to_add = itplines[i].strip().split(';')[0]
+            if to_add and '[' not in to_add and ']' not in to_add:
+                all_lines.append(to_add)
+            else:
+                keep_iterating = False
+        else:
+            keep_iterating = False
+    return all_lines
