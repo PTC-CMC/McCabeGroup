@@ -134,6 +134,20 @@ def coordinates_from_file(source, sink):
     return coordinates_from_compound(mb.load(source), sink)
 
 def read_section(directive, itplines):
+    """ Extract all the lines from an itp lines under a directive
+
+    Parmaeters
+    ----------
+    directive : str
+        Directive we are looking for 
+    itplines : array of str
+        ITP file lines
+
+    Returns
+    -------
+    all_lines : array
+        Each line of the itp file under that directive
+        """
     all_lines = []
     i = find_directive(directive, itplines)
     keep_iterating = True
