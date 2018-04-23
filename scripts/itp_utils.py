@@ -38,7 +38,7 @@ def remove_comments(itplines):
     """ Remove commented lines and tail comments from itplines """
     newlines = []
     for line in itplines:
-        if ';' not in line[0] and line.strip():
+        if ';' not in line[0] and line.strip() and '#' not in line[0]:
             newlines.append(line.split(';')[0])
 
     return newlines
@@ -153,7 +153,7 @@ def read_section(directive, itplines):
     keep_iterating = True
     while keep_iterating:
         i += 1
-        if itplines[i].strip():
+        if len(itplines) > i and itplines[i].strip():
             to_add = itplines[i].strip().split(';')[0]
             if to_add and '[' not in to_add and ']' not in to_add:
                 all_lines.append(to_add)
