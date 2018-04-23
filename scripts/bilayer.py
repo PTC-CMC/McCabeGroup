@@ -53,6 +53,7 @@ class Bilayer(mb.Compound):
                 density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
         bot_layer = reflect(bot_layer)
         bot_layer = random_orientation(bot_layer, random_spin)
+        bot_layer.translate([0,0,-0.3])
         
         self.add(top_layer)
         self.add(bot_layer)
@@ -215,6 +216,6 @@ def _validate_leaflet_info(leaflet_info, n_x, n_y):
 
     assert type(n_x) is int and type(n_y) is int, "n_x and n_y must be integers"
 
-    assert abs(predicted - n_lipids) < 1, \
+    assert abs(predicted - n_x * n_y) < 1, \
         "Leaflet information incorrect, {} molecules needed but {} molecules specified".format(n_lipids, predicted)
 
