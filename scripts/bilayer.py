@@ -129,12 +129,13 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
 
 def reflect(leaflet):
     """ Reflect leaflet across XY plane """
-    for particle in leaflet.particles():
-        particle.pos[2] = -particle.pos[2]
+    #for particle in leaflet.particles():
+        #particle.pos[2] = -particle.pos[2]
+    leaflet.spin(np.pi, [0, 1,0])
 
     # The reflection will also invert the direction of the tilt, 
     # so spin the leaflet to avoid the cross-tilted pattern
-    leaflet.rotate(np.pi, [0,0,1])
+    leaflet.spin(np.pi, [0,0,1])
     return leaflet
 
 def solvate_leaflet(leaflet, solvent, **kwargs):
