@@ -5,6 +5,8 @@ Iacovella, and McCabe's ceramide additions (2013 JCTC)
 Default units: Mass (amu), distance (Angstrom), charge (e)  
 Txt files + `txt_to_xml.py` -> XML Prototype file  
 XML Prototype file + `xml_to_cmpd.py` -> mbuild Compound python module and properly-aligned mol2 structure (with bonds)  
+In general, molecules are aligned such that headgroups are centered on the origin with the tails oriented in negative
+Z space 
 ## Itp files and Charmm36 FF
 The FFA and ceramides were based on Tim's itps, which pulled from the prototype.txt 
 files. As such, all bonded parameters are explicitly stated in each molecule.itp, and
