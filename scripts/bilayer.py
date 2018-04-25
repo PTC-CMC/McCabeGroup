@@ -134,7 +134,7 @@ def reflect(leaflet):
 
     # The reflection will also invert the direction of the tilt, 
     # so spin the leaflet to avoid the cross-tilted pattern
-    leaflet.spin(np.pi, [0,0,1])
+    leaflet.rotate(np.pi, [0,0,1])
     return leaflet
 
 def solvate_leaflet(leaflet, solvent, **kwargs):
