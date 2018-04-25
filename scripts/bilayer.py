@@ -131,8 +131,9 @@ def reflect(leaflet):
     """ Reflect leaflet across XY plane """
     #for particle in leaflet.particles():
         #particle.pos[2] = -particle.pos[2]
-    leaflet.spin(np.pi, [0, 1,0])
-
+    reflection_plane = np.min(leaflet.xyz[:,2])
+    for particle in leaflet.particles():
+        particle.pos[2] = 2*particle.pos[2] - reflection_plane
     # The reflection will also invert the direction of the tilt, 
     # so spin the leaflet to avoid the cross-tilted pattern
     leaflet.spin(np.pi, [0,0,1])
