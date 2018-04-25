@@ -129,8 +129,6 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
 
 def reflect(leaflet):
     """ Reflect leaflet across XY plane """
-    #for particle in leaflet.particles():
-        #particle.pos[2] = -particle.pos[2]
     reflection_plane = np.min(leaflet.xyz[:,2])
     for particle in leaflet.particles():
         particle.pos[2] = 2*reflection_plane - particle.pos[2]
