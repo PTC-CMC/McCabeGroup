@@ -187,8 +187,8 @@ def align_cmpd(cmpd, align_indices):
     # Translate back to origin
     aligned_cmpd.translate(-1*aligned_cmpd.children[align_indices[0]].pos)
 
-    # If the compound is aligned along negative Z, reflect across XY plane
-    if aligned_cmpd.pos[2] < 0:
+    # If the compound is aligned along positive Z, reflect across XY plane
+    if aligned_cmpd.pos[2] > 0:
         for particle in aligned_cmpd.particles():
             particle.pos[2] = -particle.pos[2]
 
