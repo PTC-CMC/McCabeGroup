@@ -161,8 +161,8 @@ def align_cmpd(cmpd, align_indices):
 
     Notes
     -----
-    Tail tip (first particle)is centered at origin.
-    Headgroup (last particle) at most positive Z.
+    Headgroup (first particle)is centered at origin.
+    Tail tip (last particle) at most negative Z.
     Molecule aligned parallel to Z-axis
     """
     aligned_cmpd = mb.clone(cmpd)
@@ -173,7 +173,7 @@ def align_cmpd(cmpd, align_indices):
     # Define vectors
     cmpd_vector = (aligned_cmpd.children[align_indices[1]].pos
                   -aligned_cmpd.children[align_indices[0]].pos)
-    ref_vector = [0,0,1]
+    ref_vector = [0,0,-1]
     
     # Utilize dot products to compute angle between vectors
     # Utilize cross products to compute the vector normal to the
