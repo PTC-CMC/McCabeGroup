@@ -14,7 +14,7 @@ bilayer = mb.load('ligandrm.pdb')
 
 cmpd = itp_utils.compound_from_itp('ffa16.itp')
 cmpd = itp_utils.coordinates_from_compound(bilayer, cmpd)
-aligned_cmpd = xml_utils.align_cmpd(cmpd, [46,7])
+aligned_cmpd = xml_utils.align_cmpd(cmpd, [3,46])
 
 aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name), 
         residues=[aligned_cmpd.name], overwrite=True)

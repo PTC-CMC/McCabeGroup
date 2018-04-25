@@ -14,7 +14,7 @@ bilayer = mb.load('ffa12.pdb')
 
 cmpd = itp_utils.compound_from_itp('ffa12.itp')
 cmpd = itp_utils.coordinates_from_compound(bilayer, cmpd)
-aligned_cmpd = xml_utils.align_cmpd(cmpd, [34,3])
+aligned_cmpd = xml_utils.align_cmpd(cmpd, [3,34])
 
 aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name), 
         residues=[aligned_cmpd.name], overwrite=True)

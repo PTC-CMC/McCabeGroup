@@ -14,7 +14,7 @@ charmmgui = mb.load('oh24.pdb')
 
 cmpd = itp_utils.compound_from_itp('oh24.itp')
 cmpd = itp_utils.coordinates_from_compound(charmmgui, cmpd)
-aligned_cmpd = xml_utils.align_cmpd(cmpd, [36,71])
+aligned_cmpd = xml_utils.align_cmpd(cmpd, [70,36])
 
 aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name), 
         residues=[aligned_cmpd.name], overwrite=True)
