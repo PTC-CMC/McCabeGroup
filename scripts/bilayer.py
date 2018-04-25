@@ -148,12 +148,13 @@ def solvate_leaflet(leaflet, solvent, **kwargs):
 
     Notes
     -----
-    Solvents placed at highest Z coordinate """
+    Solvents placed at lowestZ coordinate 
+    """
 
     solvent_box = mb.fill_box(solvent, **kwargs)
-    top_of_leaflet = np.max(leaflet.xyz[:,2])
-    bot_of_solvent = np.min(solvent_box.xyz[:,2])
-    solvent_box.translate([0,0, 0.1 + top_of_leaflet - bot_of_solvent])
+    bot_of_leaflet = np.min(leaflet.xyz[:,2])
+    top_of_solvent = np.max(solvent_box.xyz[:,2])
+    solvent_box.translate([0,0, -(0.1 + top_of_solvent - bot_of_leaflet)])
 
     leaflet.add(solvent_box)
     return leaflet
