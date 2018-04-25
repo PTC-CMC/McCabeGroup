@@ -74,7 +74,8 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
         Each row corresponds to a molecule
         First column is the mB.compound
         Second column is the number of that molecule
-        Third column is a z-offset specific to molecules of that type
+        Third column is a z-offset specific to molecules of that type (positive means closer to the solvent,
+            negative means deeper inside the bilayer)
     tilt_angle : float (rad)
         tilt angle (spun around y-axis)
     spacing : float (nm)
@@ -129,9 +130,9 @@ def make_leaflet(leaflet_info, n_x=8, n_y=8, tilt_angle=0, spacing=0,
 
 def reflect(leaflet):
     """ Reflect leaflet across XY plane """
+    reflection_plane = np.min(leaflet.xyz[:,2])
     for particle in leaflet.particles():
-        particle.pos[2] = -particle.pos[2]
-
+        particle.pos[2] = 2*reflection_plane - particle.pos[2]
     # The reflection will also invert the direction of the tilt, 
     # so spin the leaflet to avoid the cross-tilted pattern
     leaflet.spin(np.pi, [0,0,1])
@@ -148,7 +149,8 @@ def solvate_leaflet(leaflet, solvent, **kwargs):
 
     Notes
     -----
-    Solvents placed at highest Z coordinate """
+    Solvents placed at highest Z coordinate 
+    """
 
     solvent_box = mb.fill_box(solvent, **kwargs)
     top_of_leaflet = np.max(leaflet.xyz[:,2])

@@ -14,7 +14,7 @@ ref_molecule = mb.load('oh16.pdb')
 
 cmpd = itp_utils.compound_from_itp('oh16.itp')
 cmpd = itp_utils.coordinates_from_compound(ref_molecule, cmpd)
-aligned_cmpd = xml_utils.align_cmpd(cmpd, [24,46])
+aligned_cmpd = xml_utils.align_cmpd(cmpd, [46,24])
 
 aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name), 
         residues=[aligned_cmpd.name], overwrite=True)
