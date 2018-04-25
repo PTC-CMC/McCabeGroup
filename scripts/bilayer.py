@@ -133,7 +133,7 @@ def reflect(leaflet):
         #particle.pos[2] = -particle.pos[2]
     reflection_plane = np.min(leaflet.xyz[:,2])
     for particle in leaflet.particles():
-        particle.pos[2] = 2*particle.pos[2] - reflection_plane
+        particle.pos[2] = 2*reflection_plane - particle.pos[2]
     # The reflection will also invert the direction of the tilt, 
     # so spin the leaflet to avoid the cross-tilted pattern
     leaflet.spin(np.pi, [0,0,1])
