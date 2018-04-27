@@ -162,3 +162,33 @@ def read_section(directive, itplines):
         else:
             keep_iterating = False
     return all_lines
+
+def find_directives(itplines):
+    """ Iterate through itp file and get all the directives
+
+    Parameters
+    ----------
+    itplines: array of str
+
+    Returns
+    -------
+    directives : Dictionary
+       keys are directives, values are arrays of corresponding lines 
+
+    Notes
+    -----
+    If the same directive is listed multiple times, change the name of the
+    directive in the dictionary to avoid clashes
+        """
+    directives = {}
+    for line in itplines:
+        if '[' in line and ']' in line:
+            directive = line.replace('[','')
+            directive = directive.replace(']', '')
+            directive = directive.strip()
+            section = read_section(directive, itplines)
+            if directives[directive]:
+                directives[directive+"2"] = section
+            else:
+                directives[directive] = section
+    return directives
