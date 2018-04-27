@@ -3,6 +3,8 @@ import numpy as np
 from lxml import etree
 import xml.etree.ElementTree as ET
 
+from collections import OrderedDict
+
 import mbuild as mb
 
 #########################
@@ -10,11 +12,14 @@ import mbuild as mb
 ## that have been stored in a variety of formats
 ########################
 
-ATOMTYPES_FILE_PATH = '/raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/types.txt'
+ATOMTYPES_FILE_PATH = '/home/ayang41/Programs/McCabeGroup/atomistic/types.txt'
 def ATOMTYPES_FILE():
     return ATOMTYPES_FILE_PATH
 
 def parse_type_dict(filename, zero_index=False):
+    return parse_types_from_file(filename, zero_index=True, as_list=True)
+
+def parse_types_from_file(filename, zero_index=False, as_list=True, as_dict=False):
     """ Read atomtypes into a list
 
     Parameters
@@ -24,11 +29,21 @@ def parse_type_dict(filename, zero_index=False):
     zero_index : bool, default False
         If True, first atomtype is stored in index 0
         If False, first atomtype is stored in index 1
+    as_list : bool, default True
+        If True, return the types in a list where index corresponds to the
+        number-atomtype
+    as_dict : bool, default False
+        If True, return the types in a dict 
+        keys : atomtype name
+        vals : atomtype index
 
     Returns
     -------
     atomtypes : list
         List of atomtypes
+        index of atomtypes is the number-atomtype
+    atomtype_dict : OrderedDict
+        Dictionary mapping name-atomtpyes to number-atomtypes
 
     Notes
     -----
@@ -37,12 +52,21 @@ def parse_type_dict(filename, zero_index=False):
         """
     all_lines = open(filename,'r').readlines()
     atomtypes = []
+    atomtype_dict = OrderedDict()
+
     if not zero_index: 
         atomtypes.append("NULL")
-    for line in all_lines:
+    for i, line in enumerate(all_lines):
         line = line.rstrip()
         atomtypes.append(line.split()[1])
-    return atomtypes
+        if zero_index:
+            atomtype_dict[line.split()[1]]  = i
+        else:
+            atomtype_dict[line.split()[1]] = i + 1
+    if as_list:
+        return atomtypes
+    elif as_dict:
+        return atomtype_dict
 
 
 def write_type_position_elements(type_element, position_element, filename,
