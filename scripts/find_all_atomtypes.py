@@ -6,6 +6,14 @@ import glob as glob
 import scripts.itp_utils as itp_utils
 import scripts.xml_utils as xml_utils
 
+############################
+## This is a script to comb through all folders in `atomistic`
+## Look for the itp files
+## Pull the atomtypes from the itp files
+## Print out the atomtypes that aren't yet included in types.txt
+## This is useful for expanding our lammps charmm36 forcefield with 
+## Atomtypes from new gromacs itp files
+####################
 
 atomtype_dict = xml_utils.parse_type_dict(xml_utils.ATOMTYPES_FILE())
 curr_dir = os.getcwd()
