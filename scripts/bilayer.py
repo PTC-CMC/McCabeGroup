@@ -219,5 +219,5 @@ def _validate_leaflet_info(leaflet_info, n_x, n_y):
     assert type(n_x) is int and type(n_y) is int, "n_x and n_y must be integers"
 
     assert abs(predicted - n_x * n_y) < 1, \
-        "Leaflet information incorrect, {} molecules needed but {} molecules specified".format(n_lipids, predicted)
+        "Leaflet information incorrect, {} molecules needed but {} molecules specified".format(n_x*n_y, predicted)
 
