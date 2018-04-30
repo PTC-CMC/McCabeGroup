@@ -13,6 +13,7 @@ import mbuild as mb
 ########################
 
 ATOMTYPES_FILE_PATH = '/home/ayang41/Programs/McCabeGroup/atomistic/types.txt'
+
 def ATOMTYPES_FILE():
     return ATOMTYPES_FILE_PATH
 
