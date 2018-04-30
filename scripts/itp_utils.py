@@ -192,3 +192,72 @@ def find_directives(itplines):
             else:
                 directives[directive] = section
     return directives
+
+
+def find_itp_bond_param(i, j, itp_bond_params):
+    """ Find line with the corresponding type
+
+    i,j : strs for each atom
+    itp_bond_params : array of itp lines of the angle directive
+    """
+
+    for line in itp_bond_params:
+        line = line.strip()
+        if i.strip() == line.split()[0] and j.strip() == line.split()[1]:
+            return line
+        elif j.strip() == line.split()[0] and i.strip() == line.split()[1]:
+            return line
+    sys.exit('no luck finding {}-{}'.format(i,j))
+
+def find_itp_angle_param(i, j, k, itp_angle_params):
+    """ Find line with the corresponding type
+
+    Parameters
+    ---------
+    i,j, k : strs for each atom
+    itp_angle_params : array of itp lines of the angle directive
+    """
+    for line in itp_angle_params:
+        line = line.strip()
+        if j.strip() == line.split()[1]:
+            if (i.strip() == line.split()[0] and
+                k.strip() == line.split()[2]):
+                   return line
+            elif (k.strip() == line.split()[0] and
+                  j.strip() == line.split()[2]):
+                     return line
+    sys.exit("no luck finding {}-{}-{}".format(i,j ,k))
+
+def find_itp_dihedral_param(i,j,k,l, multiplicity, itp_dihedral_params, 
+                            multiplicity=None):
+    """ Find line with the corresponding type
+    
+    Notes
+    -----
+    Due to multiplicity, make sure that we're finding
+    dihedrals with the same multiplicity
+
+    Parameters
+    -----------
+    i,j, k, l : strs for each atom
+    multiplicity : str, optional
+        If not none, then make sure that the multiplicities of the lines agree
+        before returning the line
+    itp_dihedral_params : array of itp lines of the dihedral directive
+    """
+    for line in itp_dihedral_params:
+        line = line.strip()
+        if (i.strip() == line.split()[0] and j.strip() == line.split()[1] \
+           and k.strip() == line.split()[2] and l.strip() == line.split()[3]) or \
+           (l.strip() == line.split()[0] and k.strip() == line.split()[1] \
+           and j.strip() == line.split()[2] and i.strip() == line.split()[3]):
+                if multiplicity is not None:
+                    if line.split()[-1] == multiplicity:
+                        return line
+                else:
+                    return line
+
+
+    sys.exit("no luck finding {}-{}-{}-{}".format(i, j, k, l))
+
+
