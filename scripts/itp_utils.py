@@ -207,7 +207,7 @@ def find_itp_bond_param(i, j, itp_bond_params):
             return line
         elif j.strip() == line.split()[0] and i.strip() == line.split()[1]:
             return line
-    sys.exit('no luck finding {}-{}'.format(i,j))
+    return None
 
 def find_itp_angle_param(i, j, k, itp_angle_params):
     """ Find line with the corresponding type
@@ -226,9 +226,9 @@ def find_itp_angle_param(i, j, k, itp_angle_params):
             elif (k.strip() == line.split()[0] and
                   j.strip() == line.split()[2]):
                      return line
-    sys.exit("no luck finding {}-{}-{}".format(i,j ,k))
+    return None
 
-def find_itp_dihedral_param(i,j,k,l, multiplicity, itp_dihedral_params, 
+def find_itp_dihedral_param(i,j,k,l, itp_dihedral_params, 
                             multiplicity=None):
     """ Find line with the corresponding type
     
@@ -245,6 +245,7 @@ def find_itp_dihedral_param(i,j,k,l, multiplicity, itp_dihedral_params,
         before returning the line
     itp_dihedral_params : array of itp lines of the dihedral directive
     """
+    dihedral_lines = []
     for line in itp_dihedral_params:
         line = line.strip()
         if (i.strip() == line.split()[0] and j.strip() == line.split()[1] \
@@ -253,11 +254,15 @@ def find_itp_dihedral_param(i,j,k,l, multiplicity, itp_dihedral_params,
            and j.strip() == line.split()[2] and i.strip() == line.split()[3]):
                 if multiplicity is not None:
                     if line.split()[-1] == multiplicity:
-                        return line
+                        #return line
+                        dihedral_lines.append(line)
                 else:
-                    return line
+                    #return line
+                    dihedral_lines.append(line)
 
-
-    sys.exit("no luck finding {}-{}-{}-{}".format(i, j, k, l))
+    if len(dihedral_lines) > 0:
+        return dihedral_lines
+    else:
+        return None
 
 
