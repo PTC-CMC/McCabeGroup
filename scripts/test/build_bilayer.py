@@ -47,6 +47,13 @@ structure = system.to_parmed(box=system.boundingbox, residues=set([p.parent.name
 from foyer import Forcefield
 ff = Forcefield(forcefield_files=['newwater.xml', 'newff.xml'])
 structure = ff.apply(structure)
+
+# Because mbuild compounds don't pass charges to parmed structures, need to
+# manuallly set the charges AFTER the force field has been applied
+for i, j in zip(system.particles(), structure.atoms):
+    j.charge = i.charge
+
+pdb.set_trace()
 write_lammpsdata(structure, 'thing.lammps')
 
 #system.save('{}.gro'.format(filename), box=system.boundingbox, 
