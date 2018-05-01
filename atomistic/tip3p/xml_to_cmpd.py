@@ -11,7 +11,7 @@ import pdb
 ## so ensure molecule_name matches the itp file
 #######################
 xmlfile = "tip3p.xml"
-molecule_name = "tip3p"
+molecule_name = "SOL"
 structure_file = molecule_name + ".mol2"
 cmpd = xml_utils.compound_from_xml(xmlfile, a_to_nm=True, name=molecule_name)
 
@@ -22,4 +22,4 @@ cmpd = xml_utils.align_cmpd(cmpd, align_indices=[0, int(cmpd.n_particles/2),-1])
 cmpd.save('{}'.format(structure_file), overwrite=True, residues=[molecule_name])
 
 # Write compound.py file
-xml_utils.write_compound_py(molecule_name, structure_file)
+xml_utils.write_compound_py(cmpd, structure_file)
