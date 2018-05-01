@@ -80,7 +80,7 @@ def parse_atoms(itplines, cmpd):
         index += 1
         atom_info = itplines[index].split()
         if len(atom_info) == 8:
-            to_add = mb.Compound(name=atom_info[1])
+            to_add = mb.Compound(name=atom_info[1], charge=float(atom_info[6]))
             cmpd.add(to_add)
         else:
             keep_iterating = False
