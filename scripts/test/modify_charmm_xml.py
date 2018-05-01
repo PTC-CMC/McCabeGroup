@@ -17,7 +17,6 @@ NM_TO_A = 1
 # Note that this xml has some additional atomtypes specified from Tim's parameters
 
 tree = etree.parse('charmm36_nowaters.xml')
-#tree = etree.parse('waters_ions_default.xml')
 root = tree.getroot()
 # All the relevant XML elements
 atomTypes = root.findall('AtomTypes')[0]
@@ -27,6 +26,7 @@ ureyBradleyForce = root.findall("AmoebaUreyBradleyForce")[0]
 periodicTorsionForce = root.findall("PeriodicTorsionForce")[0]
 improperTorsionForce = root.findall("CustomTorsionForce")[0]
 lennardJonesForce = root.findall("LennardJonesForce")[0]
+nonbondedForce = root.findall('NonbondedForce')[0]
 
 new_root = etree.Element('ForceField')
 # Atomtypes
@@ -41,11 +41,22 @@ new_root.append(atomTypes)
 
 # Bonds
 for bond_element in harmonicBondForce:
-    # Do unit conversions for them all
-    bond_element.attrib['k'] = "{:15.5f}".format( KJ_TO_KCAL * (NM_TO_A **-2) *\
-                                float(bond_element.attrib['k'])).strip()
-    bond_element.attrib['length']="{:7.4f}".format(NM_TO_A * \
-                                   float(bond_element.attrib['length'])).strip()
+    # Negelct HT bonds since that should be handled in the water ffxml
+    if bond_element.attrib['type1'] != 'HT' and \
+       bond_element.attrib['type2'] != 'HT':
+            bond_element.attrib['k'] = "{:15.5f}".format(\
+                                        float(bond_element.attrib['k'])).strip()
+            bond_element.attrib['length']="{:7.4f}".format( \
+                                           float(bond_element.attrib['length'])).strip()
+    else:
+        harmonicBondForce.remove(bond_element)
+# Define additiona lbond
+extra_bond = etree.Element('Bond')
+extra_bond.attrib['k'] = "{:15.5f}".format(456056.0).strip()
+extra_bond.attrib['length'] = "{:15.5f}".format(0.096).strip()
+extra_bond.attrib['type1'] = "OCL"
+extra_bond.attrib['type2'] = "HL"
+harmonicBondForce.append(extra_bond)
 new_root.append(harmonicBondForce)
 
 # Angles
@@ -87,11 +98,23 @@ for improper_element in improperTorsionForce:
 #new_root.append(improperTorsionForce)
 
 # LJ force terms move into the nonbondedforce terms
-# Charges move into nonbondedforce terms
-# Wait but charges depend on the molecule, so maybe charges should be set from the
-# mbuild compound
+for nonbond_element in nonbondedForce:
+    # Look through each nonbonded force
+    if nonbond_element.tag != "UseAttributeFromResidue":
+        for lj_element in lennardJonesForce:
+        # Find the lennard jones force with the associated type
+            if nonbond_element.tag=="Atom" and lj_element.tag=="Atom":
+                if nonbond_element.attrib['type'] == lj_element.attrib['type']:
+                    nonbond_element.attrib['sigma'] = lj_element.attrib['sigma']
+                    nonbond_element.attrib['epsilon'] = lj_element.attrib['epsilon']
+                    nonbond_element.attrib['charge'] = "0.0"
+    else:
+        nonbondedForce.remove(nonbond_element)
+
+new_root.append(nonbondedForce)
+
 
 
 # Construct tree and save
 new_tree = etree.ElementTree(new_root)
-new_tree.write("newff.xml", pretty_print=True)
+new_tree.write("foyer_charmm.xml", pretty_print=True)

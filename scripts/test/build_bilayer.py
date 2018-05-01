@@ -9,7 +9,7 @@ import scripts.bilayer as bilayer
 # Import statements for molecule prototypes
 import atomistic.dppc.DPPC as DPPC
 import atomistic.c24ffa.ffa24 as ffa24
-import atomistic.tip3p.tip3p as tip3p
+import atomistic.tip3p.SOL as SOL
 
 ###################
 ## Sample script to construct and save an mBuild Bilayer for Gromacs
@@ -24,14 +24,14 @@ solvent_density = 900
 random_spin=np.deg2rad(10)
 n_x = 4
 n_y = 4
-n_solvent_per_lipid = 20
+n_solvent_per_lipid = 5
 leaflet_info = [ (DPPC.DPPC(), 8, 0),
                  (ffa24.ffa24(), 8, -0.5)
                  ]
 
 system = bilayer.Bilayer(leaflet_info=leaflet_info, n_x=n_x, n_y=n_y, apl=apl, 
         tilt_angle=tilt_angle, random_spin=random_spin,
-        solvent=tip3p.SOL(), solvent_density=solvent_density, 
+        solvent=SOL.SOL(), solvent_density=solvent_density, 
         n_solvent_per_lipid=n_solvent_per_lipid)
 
 system = bilayer.translate_to_positive_octant(system)
@@ -45,7 +45,7 @@ structure = system.to_parmed(box=system.boundingbox, residues=set([p.parent.name
 
 
 from foyer import Forcefield
-ff = Forcefield(forcefield_files=['newwater.xml', 'newff.xml'])
+ff = Forcefield(forcefield_files=['foyer_water.xml', 'foyer_charmm.xml'])
 structure = ff.apply(structure)
 
 # Because mbuild compounds don't pass charges to parmed structures, need to
