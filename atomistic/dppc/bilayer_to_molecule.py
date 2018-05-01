@@ -14,4 +14,4 @@ aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name),
         residues=[aligned_cmpd.name], overwrite=True)
 
 
-xml_utils.write_compound_py(aligned_cmpd.name, '{}.mol2'.format(aligned_cmpd.name))
+xml_utils.write_compound_py(aligned_cmpd, '{}.mol2'.format(aligned_cmpd.name))
