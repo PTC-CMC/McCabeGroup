@@ -150,14 +150,17 @@ def compound_from_xml(xmlfile, a_to_nm=True, **kwargs):
     
     # Get xyz coordinates for each particle
     all_xyz = position_element.text.strip('\n').split('\n')
-    for atomtype, xyz in zip(all_types, all_xyz):
+    
+    # Get charges for each particle
+    all_charges = charge_element.text.strip('\n').split('\n')
+    for atomtype, xyz, charge in zip(all_types, all_xyz, all_charges):
         if ',' in atomtype:
             # If this atomtype has a comma, then the format is
             # atomtype_index, atomtype_name
             # Otherwise, just use the text returned by atomtype
             atomtype = atomtype.split(',')[1]
             particle_to_add = mb.Compound(name=atomtype, 
-                    pos=xyz.split())
+                    pos=xyz.split(), charge=float(charge))
             # XML files are usually in Angstroms, so we need to convert to nm
             if a_to_nm:
                 particle_to_add.pos /= 10
