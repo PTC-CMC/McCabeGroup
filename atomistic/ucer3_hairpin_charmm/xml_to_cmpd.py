@@ -22,4 +22,4 @@ cmpd = xml_utils.align_cmpd(cmpd, align_indices=[81,128])
 cmpd.save('{}'.format(structure_file), overwrite=True, residues=[molecule_name])
 
 # Write compound.py file
-xml_utils.write_compound_py(molecule_name, structure_file)
+xml_utils.write_compound_py(cmpd, structure_file)
