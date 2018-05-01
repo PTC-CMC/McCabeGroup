@@ -1,0 +1,26 @@
+<ForceField><AtomTypes>
+    <Type class="HT" element="_HT" mass="1.008" name="HT" def="[_HT]"/>
+    <Type class="HX" element="_HX" mass="1.008" name="HX" def="[_HX]"/>
+    <Type class="OT" element="_OT" mass="15.9994" name="OT" def="[_OT]"/>
+    <Type class="OX" element="_OX" mass="15.9994" name="OX" def="[_OX]"/>
+    <Type class="LIT" element="_LIT" mass="6.941" name="LIT" def="[_LIT]"/>
+    <Type class="SOD" element="_SOD" mass="22.98977" name="SOD" def="[_SOD]"/>
+    <Type class="MG" element="_MG" mass="24.305" name="MG" def="[_MG]"/>
+    <Type class="POT" element="_POT" mass="39.0983" name="POT" def="[_POT]"/>
+    <Type class="CAL" element="_CAL" mass="40.08" name="CAL" def="[_CAL]"/>
+    <Type class="RUB" element="_RUB" mass="85.4678" name="RUB" def="[_RUB]"/>
+    <Type class="CES" element="_CES" mass="132.90545" name="CES" def="[_CES]"/>
+    <Type class="BAR" element="_BAR" mass="137.327" name="BAR" def="[_BAR]"/>
+    <!--<Type class="ZN" element="_ZN" mass="65.37" name="ZN" def="[_ZN]"/>-->
+    <Type class="CAD" element="_CAD" mass="112.411" name="CAD" def="[_CAD]"/>
+    <Type class="CLA" element="_CLA" mass="35.45" name="CLA" def="[_CLA]"/>
+  </AtomTypes>
+  <HarmonicBondForce>
+    <Bond k="0.00000" length="0.1514" type1="HT" type2="HT"/>
+    <Bond k="376560.00000" length="0.0957" type1="HT" type2="OT"/>
+    <Bond k="456056.00000" length="0.0970" type1="OX" type2="HX"/>
+  </HarmonicBondForce>
+  <HarmonicAngleForce>
+    <Angle angle="1.82422" k="      460.24000" type1="HT" type2="OT" type3="HT"/>
+  </HarmonicAngleForce>
+  </ForceField>
