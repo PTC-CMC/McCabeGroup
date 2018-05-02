@@ -25,8 +25,7 @@ random_spin=np.deg2rad(10)
 n_x = 4
 n_y = 4
 n_solvent_per_lipid = 5
-leaflet_info = [ (DPPC.DPPC(), 8, 0),
-                 (ffa24.ffa24(), 8, -0.5)
+leaflet_info = [ (DPPC.DPPC(), 16, 0)
                  ]
 
 system = bilayer.Bilayer(leaflet_info=leaflet_info, n_x=n_x, n_y=n_y, apl=apl, 

@@ -95,7 +95,7 @@ for improper_element in improperTorsionForce:
         improper_element.attrib['theta0'] = "{:15.5f}".format(\
                                             float(\
                                             improper_element.attrib['theta0'])).strip()
-#new_root.append(improperTorsionForce)
+new_root.append(improperTorsionForce)
 
 # LJ force terms move into the nonbondedforce terms
 for nonbond_element in nonbondedForce:
