@@ -12,7 +12,7 @@
 
 #include "./ffa_headgroup/fhead.itp"
 #include "./c24ffa/ffa24.itp"
-#include "./c16ffa_tim/ffa16.itp"
+#include "./c16ffa/ffa16.itp"
 #include "./c12ffa/ffa12.itp"
 
 #include "./c24oh/oh24.itp"
