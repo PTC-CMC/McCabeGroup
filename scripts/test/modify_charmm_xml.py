@@ -69,11 +69,11 @@ new_root.append(harmonicAngleForce)
 
 # Urey-Bradley Terms 
 for ub_element in ureyBradleyForce:
-    ub_element.attrib['d'] = "{:15.5f}".format(NM_TO_A * \
+    ub_element.attrib['d'] = "{:15.5f}".format(1 * \
                             float(ub_element.attrib['d'])).strip()
-    ub_element.attrib['k'] = "{:15.5f}".format(0.5 * KJ_TO_KCAL * (NM_TO_A ** -2) * \
+    ub_element.attrib['k'] = "{:15.5f}".format(1 * \
                             float(ub_element.attrib['k'])).strip()
-new_root.append(harmonicAngleForce)
+new_root.append(ureyBradleyForce)
 
 # Periodic Torsion Forces
 for torsion_element in periodicTorsionForce:
