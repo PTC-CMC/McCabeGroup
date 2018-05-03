@@ -7,7 +7,7 @@ import scripts.bilayer as bilayer
 # Import statements for molecule prototypes
 import atomistic.ecer2_hairpin.ecer2 as ecer2
 import atomistic.c24ffa.ffa24 as ffa24
-import atomistic.tip3p.tip3p as tip3p
+import atomistic.tip3p.SOL as SOL
 
 ###################
 ## Sample script to construct and save an mBuild Bilayer for Gromacs
@@ -20,11 +20,11 @@ apl = 0.50
 tilt_angle = np.deg2rad(30)
 solvent_density = 900
 random_spin=np.deg2rad(10)
-n_x = 8
-n_y = 8
+n_x = 4
+n_y = 4
 n_solvent_per_lipid = 20
-leaflet_info = [ (ecer2.ecer2(), 40, 0),
-                 (ffa24.ffa24(), 24, -0.5)
+leaflet_info = [ (ecer2.ecer2(), 8, 0),
+                 (ffa24.ffa24(), 8, -0.5)
                  ]
 
 system = bilayer.Bilayer(leaflet_info=leaflet_info, n_x=n_x, n_y=n_y, apl=apl, 

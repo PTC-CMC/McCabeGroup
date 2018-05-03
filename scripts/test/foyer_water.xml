@@ -1,0 +1,41 @@
+<ForceField><AtomTypes>
+    <Type class="HT" element="_HT" mass="1.008" name="HT" def="[_HT]"/>
+    <Type class="HX" element="_HX" mass="1.008" name="HX" def="[_HX]"/>
+    <Type class="OT" element="_OT" mass="15.9994" name="OT" def="[_OT]"/>
+    <Type class="OX" element="_OX" mass="15.9994" name="OX" def="[_OX]"/>
+    <Type class="LIT" element="_LIT" mass="6.941" name="LIT" def="[_LIT]"/>
+    <Type class="SOD" element="_SOD" mass="22.98977" name="SOD" def="[_SOD]"/>
+    <Type class="MG" element="_MG" mass="24.305" name="MG" def="[_MG]"/>
+    <Type class="POT" element="_POT" mass="39.0983" name="POT" def="[_POT]"/>
+    <Type class="CAL" element="_CAL" mass="40.08" name="CAL" def="[_CAL]"/>
+    <Type class="RUB" element="_RUB" mass="85.4678" name="RUB" def="[_RUB]"/>
+    <Type class="CES" element="_CES" mass="132.90545" name="CES" def="[_CES]"/>
+    <Type class="BAR" element="_BAR" mass="137.327" name="BAR" def="[_BAR]"/>
+    <Type class="CAD" element="_CAD" mass="112.411" name="CAD" def="[_CAD]"/>
+    <Type class="CLA" element="_CLA" mass="35.45" name="CLA" def="[_CLA]"/>
+  </AtomTypes>
+  <HarmonicBondForce>
+    <Bond k="0.00000" length="0.1514" type1="HT" type2="HT"/>
+    <Bond k="376560.00000" length="0.0957" type1="HT" type2="OT"/>
+    <Bond k="456056.00000" length="0.0970" type1="OX" type2="HX"/>
+  </HarmonicBondForce>
+  <HarmonicAngleForce>
+    <Angle angle="1.82422" k="460.24000" type1="HT" type2="OT" type3="HT"/>
+  </HarmonicAngleForce>
+  <NonbondedForce coulomb14scale="1.0" lj14scale="1.0">
+    <Atom epsilon="0.192464" sigma="0.04000135244450124" type="HT" charge="0.0"/>
+    <Atom epsilon="0.192464" sigma="0.04000135244450124" type="HX" charge="0.0"/>
+    <Atom epsilon="0.6363864000000001" sigma="0.3150574226831496" type="OT" charge="0.0"/>
+    <Atom epsilon="0.50208" sigma="0.30290556416771536" type="OX" charge="0.0"/>
+    <Atom epsilon="0.00974872" sigma="0.23118821735741807" type="LIT" charge="0.0"/>
+    <Atom epsilon="0.1962296" sigma="0.2513670733232967" type="SOD" charge="0.0"/>
+    <Atom epsilon="0.06276" sigma="0.2111429961992604" type="MG" charge="0.0"/>
+    <Atom epsilon="0.364008" sigma="0.3142645228240047" type="POT" charge="0.0"/>
+    <Atom epsilon="0.50208" sigma="0.24357170953956878" type="CAL" charge="0.0"/>
+    <Atom epsilon="0.6276" sigma="0.3385415128933289" type="RUB" charge="0.0"/>
+    <Atom epsilon="0.79496" sigma="0.37417746161894255" type="CES" charge="0.0"/>
+    <Atom epsilon="0.6276" sigma="0.33675971545704825" type="BAR" charge="0.0"/>
+    <Atom epsilon="0.50208" sigma="0.2417899121032881" type="CAD" charge="0.0"/>
+    <Atom epsilon="0.6276" sigma="0.4044680180357141" type="CLA" charge="0.0"/>
+  </NonbondedForce>
+  </ForceField>

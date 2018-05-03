@@ -80,7 +80,7 @@ def parse_atoms(itplines, cmpd):
         index += 1
         atom_info = itplines[index].split()
         if len(atom_info) == 8:
-            to_add = mb.Compound(name=atom_info[1])
+            to_add = mb.Compound(name=atom_info[1], charge=float(atom_info[6]))
             cmpd.add(to_add)
         else:
             keep_iterating = False
@@ -162,3 +162,107 @@ def read_section(directive, itplines):
         else:
             keep_iterating = False
     return all_lines
+
+def find_directives(itplines):
+    """ Iterate through itp file and get all the directives
+
+    Parameters
+    ----------
+    itplines: array of str
+
+    Returns
+    -------
+    directives : Dictionary
+       keys are directives, values are arrays of corresponding lines 
+
+    Notes
+    -----
+    If the same directive is listed multiple times, change the name of the
+    directive in the dictionary to avoid clashes
+        """
+    directives = {}
+    for line in itplines:
+        if '[' in line and ']' in line:
+            directive = line.replace('[','')
+            directive = directive.replace(']', '')
+            directive = directive.strip()
+            section = read_section(directive, itplines)
+            if directives[directive]:
+                directives[directive+"2"] = section
+            else:
+                directives[directive] = section
+    return directives
+
+
+def find_itp_bond_param(i, j, itp_bond_params):
+    """ Find line with the corresponding type
+
+    i,j : strs for each atom
+    itp_bond_params : array of itp lines of the angle directive
+    """
+
+    for line in itp_bond_params:
+        line = line.strip()
+        if i.strip() == line.split()[0] and j.strip() == line.split()[1]:
+            return line
+        elif j.strip() == line.split()[0] and i.strip() == line.split()[1]:
+            return line
+    return None
+
+def find_itp_angle_param(i, j, k, itp_angle_params):
+    """ Find line with the corresponding type
+
+    Parameters
+    ---------
+    i,j, k : strs for each atom
+    itp_angle_params : array of itp lines of the angle directive
+    """
+    for line in itp_angle_params:
+        line = line.strip()
+        if j.strip() == line.split()[1]:
+            if (i.strip() == line.split()[0] and
+                k.strip() == line.split()[2]):
+                   return line
+            elif (k.strip() == line.split()[0] and
+                  j.strip() == line.split()[2]):
+                     return line
+    return None
+
+def find_itp_dihedral_param(i,j,k,l, itp_dihedral_params, 
+                            multiplicity=None):
+    """ Find line with the corresponding type
+    
+    Notes
+    -----
+    Due to multiplicity, make sure that we're finding
+    dihedrals with the same multiplicity
+
+    Parameters
+    -----------
+    i,j, k, l : strs for each atom
+    multiplicity : str, optional
+        If not none, then make sure that the multiplicities of the lines agree
+        before returning the line
+    itp_dihedral_params : array of itp lines of the dihedral directive
+    """
+    dihedral_lines = []
+    for line in itp_dihedral_params:
+        line = line.strip()
+        if (i.strip() == line.split()[0] and j.strip() == line.split()[1] \
+           and k.strip() == line.split()[2] and l.strip() == line.split()[3]) or \
+           (l.strip() == line.split()[0] and k.strip() == line.split()[1] \
+           and j.strip() == line.split()[2] and i.strip() == line.split()[3]):
+                if multiplicity is not None:
+                    if line.split()[-1] == multiplicity:
+                        #return line
+                        dihedral_lines.append(line)
+                else:
+                    #return line
+                    dihedral_lines.append(line)
+
+    if len(dihedral_lines) > 0:
+        return dihedral_lines
+    else:
+        return None
+
+

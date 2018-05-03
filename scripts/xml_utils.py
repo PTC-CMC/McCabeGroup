@@ -3,6 +3,8 @@ import numpy as np
 from lxml import etree
 import xml.etree.ElementTree as ET
 
+from collections import OrderedDict
+
 import mbuild as mb
 
 #########################
@@ -10,11 +12,15 @@ import mbuild as mb
 ## that have been stored in a variety of formats
 ########################
 
-ATOMTYPES_FILE_PATH = '/raid6/homes/ahy3nz/Programs/McCabeGroup/atomistic/types.txt'
+ATOMTYPES_FILE_PATH = '/home/ayang41/Programs/McCabeGroup/atomistic/types.txt'
+
 def ATOMTYPES_FILE():
     return ATOMTYPES_FILE_PATH
 
 def parse_type_dict(filename, zero_index=False):
+    return parse_types_from_file(filename, zero_index=True, as_list=True)
+
+def parse_types_from_file(filename, zero_index=False, as_list=True, as_dict=False):
     """ Read atomtypes into a list
 
     Parameters
@@ -24,11 +30,21 @@ def parse_type_dict(filename, zero_index=False):
     zero_index : bool, default False
         If True, first atomtype is stored in index 0
         If False, first atomtype is stored in index 1
+    as_list : bool, default True
+        If True, return the types in a list where index corresponds to the
+        number-atomtype
+    as_dict : bool, default False
+        If True, return the types in a dict 
+        keys : atomtype name
+        vals : atomtype index
 
     Returns
     -------
     atomtypes : list
         List of atomtypes
+        index of atomtypes is the number-atomtype
+    atomtype_dict : OrderedDict
+        Dictionary mapping name-atomtpyes to number-atomtypes
 
     Notes
     -----
@@ -37,12 +53,21 @@ def parse_type_dict(filename, zero_index=False):
         """
     all_lines = open(filename,'r').readlines()
     atomtypes = []
+    atomtype_dict = OrderedDict()
+
     if not zero_index: 
         atomtypes.append("NULL")
-    for line in all_lines:
+    for i, line in enumerate(all_lines):
         line = line.rstrip()
         atomtypes.append(line.split()[1])
-    return atomtypes
+        if zero_index:
+            atomtype_dict[line.split()[1]]  = i
+        else:
+            atomtype_dict[line.split()[1]] = i + 1
+    if as_list:
+        return atomtypes
+    elif as_dict:
+        return atomtype_dict
 
 
 def write_type_position_elements(type_element, position_element, filename,
@@ -125,14 +150,17 @@ def compound_from_xml(xmlfile, a_to_nm=True, **kwargs):
     
     # Get xyz coordinates for each particle
     all_xyz = position_element.text.strip('\n').split('\n')
-    for atomtype, xyz in zip(all_types, all_xyz):
+    
+    # Get charges for each particle
+    all_charges = charge_element.text.strip('\n').split('\n')
+    for atomtype, xyz, charge in zip(all_types, all_xyz, all_charges):
         if ',' in atomtype:
             # If this atomtype has a comma, then the format is
             # atomtype_index, atomtype_name
             # Otherwise, just use the text returned by atomtype
             atomtype = atomtype.split(',')[1]
             particle_to_add = mb.Compound(name=atomtype, 
-                    pos=xyz.split())
+                    pos=xyz.split(), charge=float(charge))
             # XML files are usually in Angstroms, so we need to convert to nm
             if a_to_nm:
                 particle_to_add.pos /= 10
@@ -194,21 +222,25 @@ def align_cmpd(cmpd, align_indices):
 
     return aligned_cmpd
     
-def write_compound_py(molecule_name, structure_file):
+def write_compound_py(cmpd, structure_file):
     """ Write compound python module for mbuild import
 
     Parameters
     ----------
-    molecule_name : str
-        Name of molecule
+    cmpd : mb Compound
     structure_file : str
         filename to structure that contains xyz and bonding
+
         """
-    with open('{}.py'.format(molecule_name), 'w') as f:
+    with open('{}.py'.format(cmpd.name), 'w') as f:
         f.write("""import mbuild as mb
 class {0}(mb.Compound):
     def __init__(self):
         super({0},self).__init__()
         mb.load('{1}', compound=self, relative_to_module=self.__module__)""".format(
-            molecule_name, structure_file))
+            cmpd.name, structure_file))
+        # Need to write out charges also
+        for i, child in enumerate(cmpd.particles()):
+            f.write("""
+        self.children[{0}].charge = {1}""".format(i, child.charge))
 
