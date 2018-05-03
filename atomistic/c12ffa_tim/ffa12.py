@@ -3,11 +3,11 @@ class ffa12(mb.Compound):
     def __init__(self):
         super(ffa12,self).__init__()
         mb.load('ffa12.mol2', compound=self, relative_to_module=self.__module__)
-        self.children[0].charge = 0.44
-        self.children[1].charge = -0.61
-        self.children[2].charge = -0.55
-        self.children[3].charge = 0.75
-        self.children[4].charge = -0.21
+        self.children[0].charge = 0.42
+        self.children[1].charge = -0.68
+        self.children[2].charge = -0.63
+        self.children[3].charge = 0.89
+        self.children[4].charge = -0.18
         self.children[5].charge = 0.09
         self.children[6].charge = 0.09
         self.children[7].charge = -0.18
