@@ -17,7 +17,7 @@ ffa12	     3
 [ atoms ]
 ; nr	type	resnr	residu	atom	cgnr	charge	mass
      1        HOL      1     ffa12     H1      1      0.420     1.0080   ; qtot  0.440
-     2        OCL      1     ffa12     O1      2     -0.680    15.9994   ; qtot -0.170
+     2        OHL      1     ffa12     O1      2     -0.680    15.9994   ; qtot -0.170
      3        OBL      1     ffa12     O2      3     -0.630    15.9994   ; qtot -0.720
      4         CL      1     ffa12     C1      4      0.890    12.0110   ; qtot  0.030
      5       CTL2      1     ffa12     C2      5     -0.180    12.0110   ; qtot -0.180
