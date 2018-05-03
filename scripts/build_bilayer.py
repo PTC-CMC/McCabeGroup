@@ -7,7 +7,7 @@ import scripts.bilayer as bilayer
 # Import statements for molecule prototypes
 import atomistic.ecer2_hairpin.ecer2 as ecer2
 import atomistic.c24ffa.ffa24 as ffa24
-import atomistic.tip3p.tip3p as tip3p
+import atomistic.tip3p.SOL as SOL
 
 ###################
 ## Sample script to construct and save an mBuild Bilayer for Gromacs
