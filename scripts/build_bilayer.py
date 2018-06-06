@@ -29,7 +29,7 @@ leaflet_info = [ (ecer2.ecer2(), 8, 0),
 
 system = bilayer.Bilayer(leaflet_info=leaflet_info, n_x=n_x, n_y=n_y, apl=apl, 
         tilt_angle=tilt_angle, random_spin=random_spin,
-        solvent=SOL.SOL(), solvent_density=solvent_density, 
+        solvent=SOL.SOL(), solvent_density=solvent_density,
         n_solvent_per_lipid=n_solvent_per_lipid)
 
 system = bilayer.translate_to_positive_octant(system)
