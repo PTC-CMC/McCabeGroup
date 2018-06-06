@@ -138,21 +138,32 @@ def reflect(leaflet):
     leaflet.spin(np.pi, [0,0,1])
     return leaflet
 
-def solvate_leaflet(leaflet, solvent, **kwargs):
+def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
     """ Solvate a leaflet 
 
     Parameters
     ---------
     leaflet : mB.Compound()
     solvent : mB.Compound()
-    **kwargs : for mb.fill_box()
+    density : float
+        density in kg m^-3
+    n_commpounds : int
+        number of solvent molecules
 
     Notes
     -----
     Solvents placed at highest Z coordinate 
     """
 
-    solvent_box = mb.fill_box(solvent, **kwargs)
+    # Define a solvent box such that its X and Y lengths match the leaflet
+    solvent_mass = np.sum([a.mass for a in solvent.to_parmed().atoms]) # grams
+    molecules_per_cubic_nm = density * 6.022e-4 / (solvent_mass * 1e-3)
+    box_x = leaflet.boundingbox.lengths[0]
+    box_y = leaflet.boundingbox.lengths[1]
+    box_z = (n_compounds/molecules_per_cubic_nm) / (box_x * box_y)
+    solvent_box = mb.Box(lengths=[box_x, box_y, box_z])
+
+    solvent_box = mb.fill_box(solvent, n_compounds=n_compounds, box=solvent_box)
     top_of_leaflet = np.max(leaflet.xyz[:,2])
     bot_of_solvent = np.min(solvent_box.xyz[:,2])
     solvent_box.translate([0,0, 0.1 + top_of_leaflet - bot_of_solvent])
