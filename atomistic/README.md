@@ -15,11 +15,17 @@ DPPC and DSPC were based off Charmm-GUI. While bonds, angles, dihedrals, and 1,4
 are specified within the itp files, the parameters are not. 
 As such, the bonded and nonbonded 
 parameters are pulled from ffbonded.itp and ffnonbonded.itp  
-## 1,4 pairs and interactions
+## 1,4 pairs and interactions  
 There is no general rule for 1,4 scaling of nonbonded interactions. Instead, certain
 1,4 pairs are given particular sigma and epsilon parameters.  
 The FFA and ceramides do not appear to have any special 1,4 interactions. As such,
 nrexcl=2, and 1,4 pairs are just treated like any other nonbonded interaction.  
 The DSPC and DPPC molecules have special 1,4 interactions. As such, nrexcl=3, and 
 1,4 pairs are enumerated within the itp files, with parameters pulled from
-ffnonbonded.itp
+ffnonbonded.itp  
+In lammps special bonds should be set to 0 because 1,4 interactions are handled 
+in the dihedral routines (charmm style dihedrals). The weights in the charmm dihedrals
+correspond to scaling the 1,4 nonbonded interactions. For example, if the same dihedral
+is parameterized with 4 dihedral terms (4 sets of coefficients), then the 
+nonbonded force for that 1,4 pair is computed 4 times. In order to compensate for this
+repetitive calculation, the weight must be 0.25.
