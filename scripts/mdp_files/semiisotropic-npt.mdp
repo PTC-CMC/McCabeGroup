@@ -1,0 +1,56 @@
+integrator               = md
+dt                       = 0.001
+nsteps                   = 300000000
+comm-mode                = Linear
+nstcomm                  = 1000
+comm-grps                = system
+constraints              = h-bonds
+
+nstxout                  = 1000000
+nstvout                  = 1000000
+nstfout                  = 0
+nstlog                   = 10000
+nstcalcenergy            = 1000
+nstenergy                = 1000
+nstxout-compressed       = 50000
+
+cutoff-scheme            = Verlet
+nstlist                  = 40
+ns_type                  = grid
+pbc                      = xyz
+periodic-molecules       = no
+dispcorr                 = no
+
+coulombtype              = PME
+coulomb-modifier         = none
+rcoulomb                 = 1.2
+vdw-type                 = cut-off
+vdw-modifier             = force-switch
+
+; cut-off lengths       
+rlist                    = 1.2
+rvdw-switch              = 1.0
+rvdw                     = 1.2
+fourierspacing           = 0.12
+pme-order                = 4
+ewald-rtol               = 1e-04
+ewald-geometry           = 3d
+epsilon-surface          = 0
+
+tcoupl                   = nose-hoover
+nsttcouple               = -1
+nh-chain-length          = 10
+tc-grps                  = lipids 
+tau_t                    = 1.0 
+ref_t                    = 305
+
+pcoupl                   = parrinello-rahman
+pcoupltype               = semiisotropic
+nstpcouple               = -1
+tau-p                    = 10.0 10.0 
+compressibility          = 4.5e-5 4.5e-5 
+ref-p                    = 1.01325 1.01325
+
+gen_vel                  = yes
+gen_temp                 = 305.0
+gen_seed                 = 6969

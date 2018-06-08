@@ -89,6 +89,7 @@ def parse_atoms(itplines, cmpd):
     keep_iterating = True
     while keep_iterating == True:
         index += 1
+
         #if we encounter a line with bonds, we know we have reached
         #the end of the atoms section
         if itplines[index].find('bonds') == -1:
