@@ -2,7 +2,7 @@ import mbuild as mb
 class DPPC(mb.Compound):
     def __init__(self):
         super(DPPC,self).__init__()
-        mb.load('DPPC.mol2', compound=self, relative_to_module=self.__module__)
+        mb.load('DPPC_new.mol2', compound=self, relative_to_module=self.__module__)
         self.children[0].charge = -0.6
         self.children[1].charge = -0.35
         self.children[2].charge = 0.25

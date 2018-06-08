@@ -2,7 +2,7 @@ import mbuild as mb
 class oh24(mb.Compound):
     def __init__(self):
         super(oh24,self).__init__()
-        mb.load('oh24.mol2', compound=self, relative_to_module=self.__module__)
+        mb.load('oh24_new.mol2', compound=self, relative_to_module=self.__module__)
         self.children[0].charge = -0.18
         self.children[1].charge = -0.18
         self.children[2].charge = 0.09

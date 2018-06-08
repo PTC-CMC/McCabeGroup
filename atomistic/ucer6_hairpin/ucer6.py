@@ -2,7 +2,7 @@ import mbuild as mb
 class ucer6(mb.Compound):
     def __init__(self):
         super(ucer6,self).__init__()
-        mb.load('ucer6.mol2', compound=self, relative_to_module=self.__module__)
+        mb.load('ucer6_new.mol2', compound=self, relative_to_module=self.__module__)
         self.children[0].charge = -0.53
         self.children[1].charge = 0.26
         self.children[2].charge = 0.58

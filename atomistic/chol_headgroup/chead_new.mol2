@@ -1,0 +1,28 @@
+@<TRIPOS>MOLECULE
+chead
+9 8 1 0 1
+SMALL
+NO_CHARGES
+@<TRIPOS>CRYSIN
+    8.3136     7.3595     8.1123    90.0000    90.0000    90.0000  1  1
+@<TRIPOS>ATOM
+       1 C1           0.0000     0.0000    -0.0000 CTL2          1 chead   
+       2 H2          -0.2820    -1.0126    -0.3702 HAL2          1 chead   
+       3 O3          -0.9145     0.9698    -0.5217 OHL           1 chead   
+       4 H4          -0.9146     0.9681    -1.4711 HOL           1 chead   
+       5 H5           0.0000     0.0000     1.5060 HAL2          1 chead   
+       6 H6           2.3990    -0.6711     0.0416 HAL3          1 chead   
+       7 C7           1.3837     0.3492    -0.4966 CTL3          1 chead   
+       8 H8           1.4226     0.4388    -1.6063 HAL3          1 chead   
+       9 H9           1.6505     1.3469    -0.0701 HAL3          1 chead   
+@<TRIPOS>BOND
+       1        6        7 1
+       2        1        2 1
+       3        1        5 1
+       4        1        7 1
+       5        7        8 1
+       6        3        1 1
+       7        3        4 1
+       8        7        9 1
+@<TRIPOS>SUBSTRUCTURE
+       1 chead           1 RESIDUE    0 **** ROOT      0
