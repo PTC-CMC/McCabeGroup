@@ -19,6 +19,7 @@ def from_itp_mol2(path, mol_name):
         """
     
     #itp_file = path + 'tip3p.itp'
+    #itp_file = path + 'dspc.itp'
     itp_file = path + mol_name + '.itp'
     mol2_file = path + mol_name + '.mol2'
     
@@ -48,7 +49,7 @@ def from_itp_mol2(path, mol_name):
         index += 1
         if itplines[index].find('bonds') == -1:
             
-            atom_info = itplines[index].split(' ')
+            atom_info = itplines[index].split()
             
             if len(atom_info) >= 7:
                 atom_name_list.append(atom_info[4])
