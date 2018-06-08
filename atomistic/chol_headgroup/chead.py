@@ -2,7 +2,7 @@ import mbuild as mb
 class chead(mb.Compound):
     def __init__(self):
         super(chead,self).__init__()
-        mb.load('chead.mol2', compound=self, relative_to_module=self.__module__)
+        mb.load('chead_new.mol2', compound=self, relative_to_module=self.__module__)
         self.children[0].charge = 0.006
         self.children[1].charge = 0.107
         self.children[2].charge = -0.56

@@ -1,0 +1,16 @@
+@<TRIPOS>MOLECULE
+tip3p
+3 2 1 0 1
+SMALL
+NO_CHARGES
+@<TRIPOS>CRYSIN
+    5.5720     5.7348     6.1964    90.0000    90.0000    90.0000  1  1
+@<TRIPOS>ATOM
+       1 O1           0.0000     0.0000     0.0000 OW            1 tip3p   
+       2 H2          -0.0000     0.0000    -0.9606 HW            1 tip3p   
+       3 H3           0.5720     0.7348     0.2358 HW            1 tip3p   
+@<TRIPOS>BOND
+       1        2        1 1
+       2        3        1 1
+@<TRIPOS>SUBSTRUCTURE
+       1 tip3p           1 RESIDUE    0 **** ROOT      0
