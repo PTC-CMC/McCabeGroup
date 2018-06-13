@@ -1,5 +1,4 @@
 import os
-import cPickle as pickle
 import random
 import math
 import pdb
@@ -55,5 +54,4 @@ def init_freq_dict(T_min, T_max, dT, T_init=None):
         T_freq[T_init] += 1
     return T_freq
 
-def load_freq_dict(picklefile):
-    return 0 
+
