@@ -5,7 +5,7 @@
 *.egg-info
 */*/*.egg-info*
 */*.egg-info/*
-tex-sampling/tex_sampling.egg-info/*
+./tex-sampling/tex_sampling.egg-info/*
 dist
 build
 eggs
