@@ -1,0 +1,19 @@
+*__pycache__*
+*.ipynb_checkpoints
+# Packages
+*.egg
+*.egg-info
+*/*/*.egg-info*
+*/*.egg-info/*
+*.egg-info/*
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+bin
+.installed.cfg
+.pypirc

@@ -1,8 +1,8 @@
 import os
-import cPickle as pickle
 import random
 import math
 import pdb
+from collections import OrderedDict
 
 import numpy as np
 
@@ -50,10 +50,9 @@ def run_lammps(script, T, lammps_executable='lmp_edison', temp_var='T',
 
 def init_freq_dict(T_min, T_max, dT, T_init=None):
     num = (T_max - T_min) / dT + 1
-    T_freq = dict.fromkeys(np.linspace(T_min, T_max, num=num), 0)
+    T_freq = OrderedDict().fromkeys(np.linspace(T_min, T_max, num=num), 0)
     if T_init:
         T_freq[T_init] += 1
     return T_freq
 
-def load_freq_dict(picklefile):
-    return 0 
+
