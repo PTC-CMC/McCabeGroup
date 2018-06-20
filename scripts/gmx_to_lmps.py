@@ -20,10 +20,10 @@ import atomistic.tip3p.SOL as SOL
 
 system = mb.Compound()
 for i in range(72):
-    system.add(DPPC.DPPC())
+    system.add(DPPC.DPPC(use_atom_name=False))
 
 for i in range(2160):
-    system.add(SOL.SOL())
+    system.add(SOL.SOL(use_atom_name=False))
 system.update_coordinates('wrapped.gro')
 
 
