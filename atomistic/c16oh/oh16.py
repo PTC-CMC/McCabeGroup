@@ -1,8 +1,11 @@
 import mbuild as mb
 class oh16(mb.Compound):
-    def __init__(self):
+    def __init__(self, use_atom_name=True):
         super(oh16,self).__init__()
-        mb.load('oh16_new.mol2', compound=self, relative_to_module=self.__module__)
+        if use_atom_name:
+            mb.load('oh16_new.mol2', compound=self, relative_to_module=self.__module__)
+        else:
+            mb.load('oh16.mol2', compound=self, relative_to_module=self.__module__)
         self.children[0].charge = -0.18
         self.children[1].charge = -0.18
         self.children[2].charge = 0.09
