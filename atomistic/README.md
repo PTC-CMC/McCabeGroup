@@ -15,6 +15,7 @@ DPPC and DSPC were based off Charmm-GUI. While bonds, angles, dihedrals, and 1,4
 are specified within the itp files, the parameters are not. 
 As such, the bonded and nonbonded 
 parameters are pulled from ffbonded.itp and ffnonbonded.itp  
+The FFXML was generated using parmed to converted forcefield.itp, and then adding some parameters that were omitted.
 ## 1,4 pairs and interactions  
 There is no general rule for 1,4 scaling of nonbonded interactions. Instead, certain
 1,4 pairs are given particular sigma and epsilon parameters.  

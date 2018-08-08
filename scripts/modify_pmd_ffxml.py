@@ -9,7 +9,7 @@ from lxml import etree
 KJ_TO_KCAL = 0.239006
 
 parser = etree.XMLParser(remove_blank_text=True)
-tree = etree.parse('forcefield_frompmd.xml', parser)
+tree = etree.parse('forcefield_frompmd_raw.xml', parser)
 root = tree.getroot()
 info = root.findall('Info')[0]
 nonbonded = root.findall('NonbondedForce')[0]
