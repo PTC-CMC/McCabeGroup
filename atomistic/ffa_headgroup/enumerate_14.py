@@ -3,7 +3,7 @@ import pdb
 
 import scripts.itp_utils as itp_utils
 
-itpfile = open('ecer2.itp','r').readlines()
+itpfile = open('fhead.itp','r').readlines()
 itpfile = itp_utils.remove_comments(itpfile)
 bonds = itp_utils.read_section('bonds', itpfile)
 pairs = itp_utils.read_section('pairs', itpfile) # For verification
