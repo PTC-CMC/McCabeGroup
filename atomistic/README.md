@@ -11,7 +11,7 @@ Z space
 The FFA and ceramides were based on Tim's itps, which pulled from the prototype.txt 
 files. As such, all bonded parameters are explicitly stated in each molecule.itp, and
 parameters do not need to be pulled from ffbonded.itp and ffnonbonded.itp.  
-DPPC and DSPC were based off Charmm-GUI. While bonds, angles, dihedrals, and 1,4 pairs
+DPPC and DSPC were based off `Charmm-GUI`. While bonds, angles, dihedrals, and 1,4 pairs
 are specified within the itp files, the parameters are not. 
 As such, the bonded and nonbonded 
 parameters are pulled from ffbonded.itp and ffnonbonded.itp  
@@ -20,7 +20,9 @@ The FFXML was generated using parmed to converted forcefield.itp, and then addin
 There is no general rule for 1,4 scaling of nonbonded interactions. Instead, certain
 1,4 pairs are given particular sigma and epsilon parameters.  
 The FFA and ceramides do not appear to have any special 1,4 interactions. As such,
-nrexcl=2, and 1,4 pairs are just treated like any other nonbonded interaction.  
+`nrexcl=2`, and 1,4 pairs are just treated like any other nonbonded interaction. As of
+[PR#27](https://github.com/PTC-CMC/McCabeGroup/pull/27), `nrexcl=3` and 1,4 pairs are enumerated in order to make these gromacs files
+compatible with `ParmEd` (and subsequently, `OpenMM`).
 The DSPC and DPPC molecules have special 1,4 interactions. As such, nrexcl=3, and 
 1,4 pairs are enumerated within the itp files, with parameters pulled from
 ffnonbonded.itp  
