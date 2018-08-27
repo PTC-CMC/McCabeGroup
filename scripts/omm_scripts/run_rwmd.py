@@ -15,6 +15,7 @@ import scripts.omm_scripts.omm_rwmd as omm_rwmd
 ### would eliminate any histogram of visited temperatures. Including code to 
 ### separately export the list of temperatures and then reading the temperatures
 ### back into the omm script is left as an exercise to the reader.
+### Note: If the simulation crashes, try adjusting the integrator setings
 #######################
 
 topfile = 'compound.top'
