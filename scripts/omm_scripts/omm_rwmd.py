@@ -1,10 +1,7 @@
 import sys
-import simtk.openmm as mm
-import simtk.openmm.app as app
 import numpy as np
 
 import parmed
-from parmed import load_file
 from parmed import unit as u
 
 import tex_sampling.pyrex as pyrex
@@ -39,6 +36,11 @@ def generate_rwmd_temperatures(current_T=305*u.kelvin, timestep=2.0*u.femtosecon
     Returns
     -------
     all_temps : np.ndarray
+
+    Notes
+    -----
+    This script doesn't account for multiple thermostating groups. Currently, I'm
+    not sure how to best implement multiple thermostatting groups.
     """
     _validate_units(**locals())
 
