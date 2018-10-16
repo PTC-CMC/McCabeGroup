@@ -138,7 +138,7 @@ for line in dihedrals_section:
 newitp.append('[ dihedrals ]\n')
 newitp.append('; ai	aj	ak	al	funct	q0	cq\n')
 newitp.append('   31    30    33    32     2\n')
-newitp.append('   40    39    42    41     2\n')
+#newitp.append('   40    39    42    41     2\n')
 
 with open('pchd.itp', 'w') as f:
     for line in newitp:
