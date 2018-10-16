@@ -1,0 +1,101 @@
+CRYST1   13.277   16.243   14.598  90.00  90.00  90.00 P 1            
+HETATM    1  NTL RES     1       3.765   8.693   3.850  0.00  0.00           N  
+HETATM    2 CTL5 RES     1       5.189   9.061   3.594  0.00  0.00           C  
+HETATM    3  HL  RES     1       5.399   8.869   2.555  0.00  0.00           H  
+HETATM    4  HL  RES     1       5.964   8.588   4.190  0.00  0.00           H  
+HETATM    5  HL  RES     1       5.278  10.127   3.734  0.00  0.00           H  
+HETATM    6 CTL5 RES     1       3.438   8.925   5.353  0.00  0.00           C  
+HETATM    7  HL  RES     1       4.121   8.359   5.976  0.00  0.00           H  
+HETATM    8  HL  RES     1       2.463   8.544   5.592  0.00  0.00           H  
+HETATM    9  HL  RES     1       3.458   9.991   5.548  0.00  0.00           H  
+HETATM   10 CTL5 RES     1       2.841   9.573   3.102  0.00  0.00           C  
+HETATM   11  HL  RES     1       2.855  10.564   3.534  0.00  0.00           H  
+HETATM   12  HL  RES     1       1.866   9.115   3.115  0.00  0.00           H  
+HETATM   13  HL  RES     1       3.104   9.732   2.068  0.00  0.00           H  
+HETATM   14 CTL2 RES     1       3.583   7.188   3.369  0.00  0.00           C  
+HETATM   15  HL  RES     1       4.009   6.431   4.000  0.00  0.00           H  
+HETATM   16  HL  RES     1       4.037   7.197   2.390  0.00  0.00           H  
+HETATM   17 CTL2 RES     1       2.122   6.735   3.135  0.00  0.00           C  
+HETATM   18 HAL2 RES     1       2.061   5.799   2.550  0.00  0.00           H  
+HETATM   19 HAL2 RES     1       1.561   7.491   2.543  0.00  0.00           H  
+HETATM   20  PL  RES     1      -0.156   6.417   4.454  0.00  0.00           P  
+HETATM   21  O2L RES     1      -0.728   7.604   3.878  0.00  0.00           O  
+HETATM   22  O2L RES     1      -0.511   6.086   5.856  0.00  0.00           O  
+HETATM   23 OSLP RES     1      -0.255   5.106   3.561  0.00  0.00           O  
+HETATM   24 OSLP RES     1       1.466   6.590   4.367  0.00  0.00           O  
+HETATM   25 CTL2 RES     1      -1.349   4.452   3.071  0.00  0.00           C  
+HETATM   26 HAL2 RES     1      -2.300   5.010   3.268  0.00  0.00           H  
+HETATM   27 HAL2 RES     1      -1.480   3.431   3.486  0.00  0.00           H  
+HETATM   28 CTL1 RES     1      -1.264   4.458   1.540  0.00  0.00           C  
+HETATM   29 HAL1 RES     1      -2.313   4.205   1.297  0.00  0.00           H  
+HETATM   30  OSL RES     1      -0.300   3.588   1.023  0.00  0.00           O  
+HETATM   31  CL  RES     1      -0.722   2.406   0.619  0.00  0.00           C  
+HETATM   32  OBL RES     1      -1.873   2.012   0.696  0.00  0.00           O  
+HETATM   33 CTL2 RES     1       0.440   1.454   0.411  0.00  0.00           C  
+HETATM   34 HAL2 RES     1       0.859   1.354   1.429  0.00  0.00           H  
+HETATM   35 HAL2 RES     1       1.082   1.834  -0.403  0.00  0.00           H  
+HETATM   36 CTL2 RES     1      -0.913   5.890   0.958  0.00  0.00           C  
+HETATM   37 HAL2 RES     1       0.107   6.119   1.338  0.00  0.00           H  
+HETATM   38 HAL2 RES     1      -1.697   6.557   1.377  0.00  0.00           H  
+HETATM   39  OSL RES     1      -0.806   5.892  -0.448  0.00  0.00           O  
+HETATM   40  CL  RES     1      -0.608   6.939  -1.092  0.00  0.00           C  
+HETATM   41  OBL RES     1      -0.351   8.032  -0.666  0.00  0.00           O  
+HETATM   42 CTL2 RES     1      -0.895   6.635  -2.592  0.00  0.00           C  
+HETATM   43 HAL2 RES     1      -1.800   7.252  -2.761  0.00  0.00           H  
+HETATM   44 HAL2 RES     1      -1.061   5.547  -2.745  0.00  0.00           H  
+HETATM   45 CTL2 RES     1       0.000   0.000   0.000  0.00  0.00           C  
+HETATM   46 HAL2 RES     1      -0.675  -0.423   0.776  0.00  0.00           H  
+HETATM   47 HAL2 RES     1       0.878  -0.679  -0.046  0.00  0.00           H  
+HETATM   48 CTL2 RES     1       0.092   7.133  -3.622  0.00  0.00           C  
+HETATM   49 HAL2 RES     1       1.124   6.746  -3.500  0.00  0.00           H  
+HETATM   50 HAL2 RES     1       0.149   8.237  -3.537  0.00  0.00           H  
+END                                                                             
+CONECT   14    1
+CONECT    3    2
+CONECT   48   49
+CONECT    4    2
+CONECT   40   41
+CONECT   14   16
+CONECT   36   38
+CONECT   44   42
+CONECT    8    6
+CONECT   48   42
+CONECT   45   46
+CONECT   45   33
+CONECT    2    5
+CONECT    1    6
+CONECT   36   39
+CONECT   28   29
+CONECT   25   28
+CONECT   20   24
+CONECT   17   24
+CONECT   20   23
+CONECT   45   47
+CONECT   31   32
+CONECT   20   22
+CONECT   10   11
+CONECT   10   13
+CONECT   36   37
+CONECT   33   34
+CONECT    1    2
+CONECT   10    1
+CONECT   31   33
+CONECT   30   31
+CONECT    7    6
+CONECT   28   36
+CONECT   43   42
+CONECT   40   42
+CONECT   28   30
+CONECT    9    6
+CONECT   17   18
+CONECT   14   15
+CONECT   33   35
+CONECT   48   50
+CONECT   39   40
+CONECT   25   26
+CONECT   10   12
+CONECT   25   27
+CONECT   23   25
+CONECT   17   19
+CONECT   14   17
+CONECT   20   21

@@ -25,6 +25,7 @@
 
 #include "./dppc/dppc.itp"
 #include "./dspc/dspc.itp"
-#include "./pc_head/pchd.itp"
+;#include "./pc_head/pchd.itp"
+#include "./pc_head_notail/pchd.itp"
 
 #include "./tip3p/tip3p.itp"
