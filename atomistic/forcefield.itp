@@ -16,6 +16,9 @@
 #include "./c12ffa/ffa12.itp"
 
 #include "./c24oh/oh24.itp"
+#include "./c22oh/oh22.itp"
+#include "./c20oh/oh20.itp"
+#include "./c18oh/oh18.itp"
 #include "./c16oh/oh16.itp"
 #include "./c12oh/oh12.itp"
 
@@ -23,8 +26,10 @@
 #include "./cholesterol/chol.itp"
 #include "./chol_headgroup/chead.itp"
 
+#include "./isis/ISIS.itp"
 #include "./dppc/dppc.itp"
 #include "./dspc/dspc.itp"
-#include "./pc_head/pchd.itp"
+;#include "./pc_head/pchd.itp"
+#include "./pc_head_notail/pchd.itp"
 
 #include "./tip3p/tip3p.itp"
