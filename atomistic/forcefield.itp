@@ -16,6 +16,7 @@
 #include "./c12ffa/ffa12.itp"
 
 #include "./c24oh/oh24.itp"
+#include "./c22oh/oh22.itp"
 #include "./c20oh/oh20.itp"
 #include "./c18oh/oh18.itp"
 #include "./c16oh/oh16.itp"
