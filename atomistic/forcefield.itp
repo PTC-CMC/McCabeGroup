@@ -26,6 +26,7 @@
 #include "./cholesterol/chol.itp"
 #include "./chol_headgroup/chead.itp"
 
+#include "./isis/ISIS.itp"
 #include "./dppc/dppc.itp"
 #include "./dspc/dspc.itp"
 ;#include "./pc_head/pchd.itp"
