@@ -138,7 +138,8 @@ def reflect(leaflet):
     leaflet.spin(np.pi, [0,0,1])
     return leaflet
 
-def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
+def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000,
+        solvent_mass=None):
     """ Solvate a leaflet 
 
     Parameters
@@ -149,6 +150,10 @@ def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
         density in kg m^-3
     n_commpounds : int
         number of solvent molecules
+    solvent_mass : float
+        mass (in grams/mol) of a solvent particle. 
+        For atomistic, leave as none (parmed can get masses from element lookups)
+        For CG, pass 72 (in general the mass of a CG solvent)
 
     Notes
     -----
@@ -156,7 +161,8 @@ def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
     """
 
     # Define a solvent box such that its X and Y lengths match the leaflet
-    solvent_mass = np.sum([a.mass for a in solvent.to_parmed().atoms]) # grams
+    if solvent_mass is None:
+        solvent_mass = np.sum([a.mass for a in solvent.to_parmed().atoms]) # grams
     molecules_per_cubic_nm = density * 6.022e-4 / (solvent_mass * 1e-3)
     box_x = leaflet.boundingbox.lengths[0]
     box_y = leaflet.boundingbox.lengths[1]
