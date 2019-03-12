@@ -28,6 +28,11 @@ class Bilayer(mb.Compound):
     solvent_density : float, (kg/m^3)
     n_solvent_per_lipid : int
     random_spin : float, (rad)
+    solvent_mass : float
+        mass (in grams/mol) of a solvent particle. 
+        For atomistic, leave as none (parmed can get masses from element lookups)
+        For CG, pass 72 (in general the mass of a CG solvent)
+
 
     Notes
     -----
@@ -37,20 +42,24 @@ class Bilayer(mb.Compound):
     """
     def __init__(self, leaflet_info, apl=0.5, n_x=8, n_y=8, tilt_angle=10,
         solvent=None, solvent_density=900, n_solvent_per_lipid=20,
-        random_spin=10):
+        random_spin=10, solvent_mass=None):
 
         super(Bilayer, self).__init__()
 
         top_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl),
                 n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
         top_layer = solvate_leaflet(top_layer, solvent, 
-                density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+                density=solvent_density, 
+                n_compounds=n_solvent_per_lipid * n_x * n_y,
+                solvent_mass=solvent_mass)
         top_layer = random_orientation(top_layer, random_spin)
         
         bot_layer = make_leaflet(leaflet_info, spacing=np.sqrt(apl), 
                 n_x=n_x, n_y=n_y, tilt_angle=tilt_angle)
         bot_layer = solvate_leaflet(bot_layer, solvent, 
-                density=solvent_density, n_compounds=n_solvent_per_lipid * n_x * n_y)
+                density=solvent_density, 
+                n_compounds=n_solvent_per_lipid * n_x * n_y,
+                solvent_mass=solvent_mass)
         bot_layer = reflect(bot_layer)
         bot_layer = random_orientation(bot_layer, random_spin)
         bot_layer.translate([0,0,-0.1])
@@ -138,7 +147,8 @@ def reflect(leaflet):
     leaflet.spin(np.pi, [0,0,1])
     return leaflet
 
-def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
+def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000,
+        solvent_mass=None):
     """ Solvate a leaflet 
 
     Parameters
@@ -149,6 +159,10 @@ def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
         density in kg m^-3
     n_commpounds : int
         number of solvent molecules
+    solvent_mass : float
+        mass (in grams/mol) of a solvent particle. 
+        For atomistic, leave as none (parmed can get masses from element lookups)
+        For CG, pass 72 (in general the mass of a CG solvent)
 
     Notes
     -----
@@ -156,7 +170,8 @@ def solvate_leaflet(leaflet, solvent, density=1000, n_compounds=50000):
     """
 
     # Define a solvent box such that its X and Y lengths match the leaflet
-    solvent_mass = np.sum([a.mass for a in solvent.to_parmed().atoms]) # grams
+    if solvent_mass is None:
+        solvent_mass = np.sum([a.mass for a in solvent.to_parmed().atoms]) # grams
     molecules_per_cubic_nm = density * 6.022e-4 / (solvent_mass * 1e-3)
     box_x = leaflet.boundingbox.lengths[0]
     box_y = leaflet.boundingbox.lengths[1]
