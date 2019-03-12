@@ -5,7 +5,7 @@ import mbuild as mb
 
 
 class Randomized_Membrane(mb.Compound):
-    def __init__(leaflet_info, 
+    def __init__(self, leaflet_info, 
             APL=0.52 * u.nm**2, lipid_density=1.12 * u.Unit('g/(cm**3)'),
             n_lipid_leaflet=64, n_solvent_per_lipid=10,
             solvent_density=0.9 * u.Unit('g/(cm**3)'), solvent_mass=72 * u.Unit('amu')):
@@ -80,8 +80,8 @@ class Randomized_Membrane(mb.Compound):
         self.add(
                 [filled_lipid_box, filled_lower_solvent, filled_upper_solvent])
         self.translate([
-            -1 * np.min(system.xyz[:,0]),
-            -1 * np.min(system.xyz[:,1]),
-            -1 * np.min(system.xyz[:,2])
+            -1 * np.min(self.xyz[:,0]),
+            -1 * np.min(self.xyz[:,1]),
+            -1 * np.min(self.xyz[:,2])
             ])
 
