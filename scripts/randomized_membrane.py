@@ -68,11 +68,14 @@ class Randomized_Membrane(mb.Compound):
         
         
         # Do packing for each box
-        filled_lipid_box = mb.fill_box(DSPC(), n_compounds=64, 
-                box=lipid_box, overlap=0.05)
-        filled_lower_solvent = mb.fill_box(mb.Particle(name="_W"), n_compounds=n_solvent,
+        filled_lipid_box = mb.fill_box([cmpd for cmpd, _ in leaflet_info], 
+                    n_compounds=[2*val for _, val in leaflet_info], 
+                    box=lipid_box, overlap=0.05)
+        filled_lower_solvent = mb.fill_box(mb.Particle(name="_W"), 
+                n_compounds=n_solvent,
                 box=lower_solvent_box, overlap=0.05)
-        filled_upper_solvent = mb.fill_box(mb.Particle(name="_W"), n_compounds=n_solvent,
+        filled_upper_solvent = mb.fill_box(mb.Particle(name="_W"), 
+                n_compounds=n_solvent,
                 box=upper_solvent_box, overlap=0.05)
         self.add(
                 [filled_lipid_box, filled_lower_solvent, filled_upper_solvent])
