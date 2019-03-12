@@ -31,8 +31,7 @@ class Randomized_Membrane(mb.Compound):
 
         Notes
         -----
-        System is initialized with center at origin, but everything eventually
-        gets translated/written with bottomleft origin
+        System is initialized with center at origin (typical hoomd)
         """
 
         super(Randomized_Membrane, self).__init__()
@@ -79,9 +78,4 @@ class Randomized_Membrane(mb.Compound):
                 box=upper_solvent_box, overlap=0.05)
         self.add(
                 [filled_lipid_box, filled_lower_solvent, filled_upper_solvent])
-        self.translate([
-            -1 * np.min(self.xyz[:,0]),
-            -1 * np.min(self.xyz[:,1]),
-            -1 * np.min(self.xyz[:,2])
-            ])
 
