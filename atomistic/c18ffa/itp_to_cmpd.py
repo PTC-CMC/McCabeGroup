@@ -14,7 +14,7 @@ ref_molecule = mb.load('ffa18.mol2')
 
 cmpd = itp_utils.compound_from_itp('ffa18.itp')
 cmpd = itp_utils.coordinates_from_compound(ref_molecule, cmpd)
-aligned_cmpd = xml_utils.align_cmpd(cmpd, [17,0])
+aligned_cmpd = xml_utils.align_cmpd(cmpd, [3,17])
 
 aligned_cmpd.save('{}.mol2'.format(aligned_cmpd.name), 
         residues=[aligned_cmpd.name], overwrite=True)
