@@ -195,6 +195,18 @@ def translate_to_positive_octant(system):
     system.translate(to_translate)
     return system
 
+def center_on_origin(system):
+    """ Shift coordinates such that they are centered around the origin,
+    useful for hoomd or lammps simulations
+    """
+    system = translate_to_positive_octant(system)
+    box = system.boundingbox
+    to_translate = [ -0.5 * box.lengths[0], 
+                    -0.5 * box.lengths[1],
+                    -0.5 * box.lengths[2]]
+    system.translate(to_translate)
+    return system
+
 def random_orientation(leaflet, angle):
     """ Randomly spin lipids
 
