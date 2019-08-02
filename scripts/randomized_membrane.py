@@ -8,7 +8,9 @@ class Randomized_Membrane(mb.Compound):
     def __init__(self, leaflet_info, 
             APL=0.52 * u.nm**2, lipid_density=1.12 * u.Unit('g/(cm**3)'),
             n_lipid_leaflet=64, n_solvent_per_lipid=10,
-            solvent_density=0.9 * u.Unit('g/(cm**3)'), solvent_mass=72 * u.Unit('amu')):
+            solvent_density=0.9 * u.Unit('g/(cm**3)'), 
+            solvent_mass=72 * u.Unit('amu'),
+            aspect_ratio=1.0):
         """ Initialize randomized lipids in solvent
 
         Parameters
@@ -22,6 +24,7 @@ class Randomized_Membrane(mb.Compound):
         n_solvent_per_lipid : number of solvent molecules per lipid (int)
         solvent_density : density of solvent (Unyt.unit)
         solvent_mass : mass of solvent molecule (Unyt.unit)
+        aspect_ratio : ratio of lx:ly for box dimensions
 
         Returns
         ------
@@ -44,9 +47,11 @@ class Randomized_Membrane(mb.Compound):
             leaflet_volume += mass/lipid_density
         total_area = APL * n_lipid_leaflet
         leaflet_height = leaflet_volume / total_area
-        lx = total_area ** 0.5
+        ly = (total_area / aspect_ratio) ** 0.5
+        lx = aspect_ratio * ly
+        #lx = total_area ** 0.5
         lx.convert_to_units(u.nm)
-        ly = total_area ** 0.5
+        #ly = total_area ** 0.5
         ly.convert_to_units(u.nm)
         lz = 2 * leaflet_height
         lz.convert_to_units(u.nm)
