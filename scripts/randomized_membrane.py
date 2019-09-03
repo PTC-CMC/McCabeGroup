@@ -16,9 +16,10 @@ class Randomized_Membrane(mb.Compound):
 
         Parameters
         ---------
-        leaflet_info : n x 2 tuple
+        leaflet_info : n x 3 tuple
             First column, mb.Compound
-            Second column, # of lipids in a leaflet (int)
+            Second column, mass of lipid, unyt.Unit
+            Third column, # of lipids in a leaflet (int)
         APL: Area per lipid (Unyt.unit)
         lipid_density : density of lipids (Unyt.unit)
         n_lipid_leaflet : number of lipids per leaflet (int)
@@ -43,9 +44,10 @@ class Randomized_Membrane(mb.Compound):
         # Leaflet/membrane properties
         n_lipid_leaflet = sum([val for _, val in leaflet_info])
         leaflet_volume = 0
-        for molecule, n in leaflet_info:
-            mass = n * np.sum([72 for _ in molecule.particles()]) * u.Unit('amu') 
-            leaflet_volume += mass/lipid_density
+        for molecule, mass, n in leaflet_info:
+            #mass = n * np.sum([72 for _ in molecule.particles()]) * u.Unit('amu') 
+            total_mass = n * mass
+            leaflet_volume += total_mass/lipid_density
         total_area = APL * n_lipid_leaflet
         leaflet_height = leaflet_volume / total_area
         ly = (total_area / aspect_ratio) ** 0.5
