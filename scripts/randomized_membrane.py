@@ -42,7 +42,7 @@ class Randomized_Membrane(mb.Compound):
         super(Randomized_Membrane, self).__init__()
 
         # Leaflet/membrane properties
-        n_lipid_leaflet = sum([val for _, val in leaflet_info])
+        n_lipid_leaflet = sum([val for _,_, val in leaflet_info])
         leaflet_volume = 0
         for molecule, mass, n in leaflet_info:
             #mass = n * np.sum([72 for _ in molecule.particles()]) * u.Unit('amu') 
