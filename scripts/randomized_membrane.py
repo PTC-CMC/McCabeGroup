@@ -75,8 +75,8 @@ class Randomized_Membrane(mb.Compound):
         
         
         # Do packing for each box
-        filled_lipid_box = mb.fill_box([cmpd for cmpd, _ in leaflet_info], 
-                    n_compounds=[2*val for _, val in leaflet_info], 
+        filled_lipid_box = mb.fill_box([cmpd for cmpd, _,_ in leaflet_info], 
+                    n_compounds=[2*val for _, _, val in leaflet_info], 
                     box=lipid_box, overlap=0.05)
         filled_lower_solvent = mb.fill_box(solvent, 
                 n_compounds=n_solvent,
