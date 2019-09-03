@@ -8,6 +8,7 @@ class Randomized_Membrane(mb.Compound):
     def __init__(self, leaflet_info, 
             APL=0.52 * u.nm**2, lipid_density=1.12 * u.Unit('g/(cm**3)'),
             n_lipid_leaflet=64, n_solvent_per_lipid=10,
+            solvent=mb.Particle(name='_W'),
             solvent_density=0.9 * u.Unit('g/(cm**3)'), 
             solvent_mass=72 * u.Unit('amu'),
             aspect_ratio=1.0):
@@ -75,12 +76,12 @@ class Randomized_Membrane(mb.Compound):
         filled_lipid_box = mb.fill_box([cmpd for cmpd, _ in leaflet_info], 
                     n_compounds=[2*val for _, val in leaflet_info], 
                     box=lipid_box, overlap=0.05)
-        filled_lower_solvent = mb.fill_box(mb.Particle(name="_W"), 
+        filled_lower_solvent = mb.fill_box(solvent, 
                 n_compounds=n_solvent,
                 box=lower_solvent_box, overlap=0.05)
-        filled_upper_solvent = mb.fill_box(mb.Particle(name="_W"), 
+        filled_upper_solvent = mb.fill_box(solvent, 
                 n_compounds=n_solvent,
                 box=upper_solvent_box, overlap=0.05)
         self.add(
                 [filled_lipid_box, filled_lower_solvent, filled_upper_solvent])
-
+        self.periodicity = [lx.value, ly.value, lz.value + 2*solvent_height.value]
