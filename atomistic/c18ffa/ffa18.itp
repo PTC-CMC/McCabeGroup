@@ -7,7 +7,8 @@
 ;; jul316@lehigh.edu or wonpil@lehigh.edu
 ;;
 ;; GROMACS topology file for STEP
-;;
+;; modified by Alex on 7/25/19 to change OHL to OCL in line with Tim's FFA parametrization
+;; and HOL to HL
 
 
 [ moleculetype ]
@@ -16,8 +17,8 @@ ffa18	     3
 
 [ atoms ]
 ; nr	type	resnr	residu	atom	cgnr	charge	mass
-     1        HOL      1     ffa18    H1      1      0.440     1.0080   ; qtot  0.440
-     2        OHL      1     ffa18    O1      2     -0.610    15.9994   ; qtot -0.170
+     1        HL      1     ffa18    H1      1      0.440     1.0080   ; qtot  0.440
+     2        OCL      1     ffa18    O1      2     -0.610    15.9994   ; qtot -0.170
      3        OBL      1     ffa18    O2      3     -0.550    15.9994   ; qtot -0.720
      4         CL      1     ffa18    C1      4      0.750    12.0110   ; qtot  0.030
      5       CTL2      1     ffa18    C2      5     -0.210    12.0110   ; qtot -0.180
@@ -288,8 +289,8 @@ ffa18	     3
 
 [ angles ] 
 ; ai	aj	ak	funct	th0	cth	S0	Kub
-    1     2     4     5
-    2     4     3     5
+    1     2     4     1
+    2     4     3     1
     2     4     5     5
     3     4     5     5
     4     5     6     5
@@ -397,8 +398,8 @@ ffa18	     3
 
 [ dihedrals ]
 ; ai	aj	ak	al	funct	phi0	cp	mult
-    1     2     4     3     9
-    1     2     4     5     9
+    1     2     4     3     1
+    1     2     4     5     1
     2     4     5     6     9
     2     4     5     7     9
     2     4     5     8     9
