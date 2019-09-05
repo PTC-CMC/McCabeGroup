@@ -8,7 +8,8 @@ class Randomized_Membrane(mb.Compound):
     def __init__(self, leaflet_info, 
             APL=0.52 * u.nm**2, lipid_density=1.12 * u.Unit('g/(cm**3)'),
             n_lipid_leaflet=64, n_solvent_per_lipid=10,
-            solvent=mb.Particle(name='_W'),
+            solvent=mb.Compound(subcompounds=mb.Particle(name='_W'),
+                                name='SOL'),
             solvent_density=0.9 * u.Unit('g/(cm**3)'), 
             solvent_mass=72 * u.Unit('amu'),
             aspect_ratio=1.0):
