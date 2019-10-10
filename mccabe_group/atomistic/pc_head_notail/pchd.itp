@@ -1,5 +1,5 @@
 ; Made by alex on 2018-10-16 11:06:37.281967
-; Phosphoate oxygen partial charges each decerased by 0.01
+; Internal carbon (28) charge decreased by 0.4 
 ; to enforce neutrality
 [ moleculetype ]
  ; name	nrexcl
