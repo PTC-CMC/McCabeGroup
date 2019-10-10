@@ -32,7 +32,7 @@ class pchd(mb.Compound):
         self.children[24].charge = -0.08
         self.children[25].charge = 0.09
         self.children[26].charge = 0.09
-        self.children[27].charge = 0.17
+        self.children[27].charge = 0.13
         self.children[28].charge = 0.09
         self.children[29].charge = -0.49
         self.children[30].charge = 0.9

@@ -1,4 +1,6 @@
 ; Made by alex on 2018-10-16 11:06:37.281967
+; Internal carbon (28) charge decreased by 0.4 
+; to enforce neutrality
 [ moleculetype ]
  ; name	nrexcl
 pchd      3

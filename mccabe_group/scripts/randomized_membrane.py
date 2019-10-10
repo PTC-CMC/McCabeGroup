@@ -8,20 +8,26 @@ class Randomized_Membrane(mb.Compound):
     def __init__(self, leaflet_info, 
             APL=0.52 * u.nm**2, lipid_density=1.12 * u.Unit('g/(cm**3)'),
             n_lipid_leaflet=64, n_solvent_per_lipid=10,
-            solvent_density=0.9 * u.Unit('g/(cm**3)'), solvent_mass=72 * u.Unit('amu')):
+            solvent=mb.Compound(subcompounds=mb.Particle(name='_W'),
+                                name='SOL'),
+            solvent_density=0.9 * u.Unit('g/(cm**3)'), 
+            solvent_mass=72 * u.Unit('amu'),
+            aspect_ratio=1.0):
         """ Initialize randomized lipids in solvent
 
         Parameters
         ---------
-        leaflet_info : n x 2 tuple
+        leaflet_info : n x 3 tuple
             First column, mb.Compound
-            Second column, # of lipids in a leaflet (int)
+            Second column, mass of lipid, unyt.Unit
+            Third column, # of lipids in a leaflet (int)
         APL: Area per lipid (Unyt.unit)
         lipid_density : density of lipids (Unyt.unit)
         n_lipid_leaflet : number of lipids per leaflet (int)
         n_solvent_per_lipid : number of solvent molecules per lipid (int)
         solvent_density : density of solvent (Unyt.unit)
         solvent_mass : mass of solvent molecule (Unyt.unit)
+        aspect_ratio : ratio of lx:ly for box dimensions
 
         Returns
         ------
@@ -37,16 +43,19 @@ class Randomized_Membrane(mb.Compound):
         super(Randomized_Membrane, self).__init__()
 
         # Leaflet/membrane properties
-        n_lipid_leaflet = sum([val for _, val in leaflet_info])
+        n_lipid_leaflet = sum([val for _,_, val in leaflet_info])
         leaflet_volume = 0
-        for molecule, n in leaflet_info:
-            mass = n * np.sum([72 for _ in molecule.particles()]) * u.Unit('amu') 
-            leaflet_volume += mass/lipid_density
+        for molecule, mass, n in leaflet_info:
+            #mass = n * np.sum([72 for _ in molecule.particles()]) * u.Unit('amu') 
+            total_mass = n * mass
+            leaflet_volume += total_mass/lipid_density
         total_area = APL * n_lipid_leaflet
         leaflet_height = leaflet_volume / total_area
-        lx = total_area ** 0.5
+        ly = (total_area / aspect_ratio) ** 0.5
+        lx = aspect_ratio * ly
+        #lx = total_area ** 0.5
         lx.convert_to_units(u.nm)
-        ly = total_area ** 0.5
+        #ly = total_area ** 0.5
         ly.convert_to_units(u.nm)
         lz = 2 * leaflet_height
         lz.convert_to_units(u.nm)
@@ -67,15 +76,15 @@ class Randomized_Membrane(mb.Compound):
         
         
         # Do packing for each box
-        filled_lipid_box = mb.fill_box([cmpd for cmpd, _ in leaflet_info], 
-                    n_compounds=[2*val for _, val in leaflet_info], 
+        filled_lipid_box = mb.fill_box([cmpd for cmpd, _,_ in leaflet_info], 
+                    n_compounds=[2*val for _, _, val in leaflet_info], 
                     box=lipid_box, overlap=0.05)
-        filled_lower_solvent = mb.fill_box(mb.Particle(name="_W"), 
+        filled_lower_solvent = mb.fill_box(solvent, 
                 n_compounds=n_solvent,
                 box=lower_solvent_box, overlap=0.05)
-        filled_upper_solvent = mb.fill_box(mb.Particle(name="_W"), 
+        filled_upper_solvent = mb.fill_box(solvent, 
                 n_compounds=n_solvent,
                 box=upper_solvent_box, overlap=0.05)
         self.add(
                 [filled_lipid_box, filled_lower_solvent, filled_upper_solvent])
-
+        self.periodicity = [lx.value, ly.value, lz.value + 2*solvent_height.value]
