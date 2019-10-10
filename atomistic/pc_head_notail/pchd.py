@@ -25,10 +25,10 @@ class pchd(mb.Compound):
         self.children[17].charge = 0.09
         self.children[18].charge = 0.09
         self.children[19].charge = 1.5
-        self.children[20].charge = -0.78
-        self.children[21].charge = -0.78
-        self.children[22].charge = -0.57
-        self.children[23].charge = -0.57
+        self.children[20].charge = -0.79
+        self.children[21].charge = -0.79
+        self.children[22].charge = -0.58
+        self.children[23].charge = -0.58
         self.children[24].charge = -0.08
         self.children[25].charge = 0.09
         self.children[26].charge = 0.09
