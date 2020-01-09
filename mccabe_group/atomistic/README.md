@@ -73,3 +73,5 @@ structure = my_compound.to_parmed(residues=['DSPC', 'ecer2'])
 # Applying the forcefield
 parametrized_structure = ff.apply(structure, assert_dihedral_params=False)
 ```
+
+Note: Using foyer helps with lammps simulations, but stick to the canonical ITP files for any gromacs simulations for ensured accuracy.
