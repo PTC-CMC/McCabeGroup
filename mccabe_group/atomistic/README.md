@@ -45,3 +45,31 @@ correspond to scaling the 1,4 nonbonded interactions. For example, if the same d
 is parameterized with 4 dihedral terms (4 sets of coefficients), then the 
 nonbonded force for that 1,4 pair is computed 4 times. In order to compensate for this
 repetitive calculation, the weight must be 0.25.
+## Compatibility with Foyer
+In this repo is the `foyer_charmm.xml`. 
+In this foyer XML, SMARTS definitions utilize the coarse-grain convention,
+where the SMARTS definitions are just the names of the particles prefaced with an underscore.
+In this design, the SMARTS definitions and particle names should correspond to the actual atom types for ease in debugging and comparison to other simulation workflows.
+For example, a choline nitrogen should have the particle name `_NTL` with the SMARTS definition being `[_NTL]`, as this choline nitrogen has the `NTL` atom type.
+
+When using these mbuild Compounds, you can generally pass the flag
+`use_atom_name=True` which will use the atomic name for each particle's name,
+OR you can pass `use_atom_name=False` which will use the atom type for each particle's name.
+We desire the latter, where the particle names correspond to the atom type.
+This may throw gromacs warnings where the atom names in the GRO file do not match the atom names in the TOP file, but that's largely cosmetic and insignificant; atom names and atom types really only matter in the TOP file and the GRO file is just for the user.
+
+When passing `use_atom_name=False` to the constructor's for each mbuild Compound, they WILL NOT have the underscore prefaced.
+This is largely a cosmetic choice and helpful for debugging/visualization in notebooks.
+Prior to any atom-typing in foyer, you will need to prepend the underscore to each particle:
+
+```
+# Prepending underscore
+for p in my_compound.particles():
+    p.name = "_" + p.name
+
+# Converting to parmed.Structure with residue names
+structure = my_compound.to_parmed(residues=['DSPC', 'ecer2'])
+
+# Applying the forcefield
+parametrized_structure = ff.apply(structure, assert_dihedral_params=False)
+```
