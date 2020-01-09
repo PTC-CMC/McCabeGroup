@@ -1,3 +1,16 @@
+# How to use
+After pip-installing from the `McCabeGroup` directory,
+access to the `atomistic` module and all molecular prototypes 
+should immediately be available,
+
+```
+>>> import mccabe_group
+>>> mccabe_group.atomistic.dspc.DSPC()
+/Users/ayang41/Programs/mdtraj/mdtraj/formats/mol2.py:215: FutureWarning: read_table is deprecated, use read_csv instead.
+  index_col=0, header=None, sep="\s+", engine='python')
+<DSPC 142 particles, non-periodic, 141 bonds, id: 4309479264>
+```
+
 # Folders
 Molecular prototypes that specify coordinates, masses, bonds, angles, charges, and atomtypes  
 By default, these parameters and prototypes are based on CHARMM36 and Guo, Moore, 
