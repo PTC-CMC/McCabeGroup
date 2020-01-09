@@ -1,1 +1,1 @@
-import atomistic
+import mccabe_group.atomistic
