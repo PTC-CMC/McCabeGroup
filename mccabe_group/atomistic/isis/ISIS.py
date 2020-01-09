@@ -2,7 +2,8 @@ import mbuild as mb
 class ISIS(mb.Compound):
     def __init__(self):
         super(ISIS,self).__init__()
-        mb.load('isis.mol2', compound=self, relative_to_module=self.__module__)
+        mb.load('isis.mol2', compound=self, relative_to_module=self.__module__,
+                infer_hierarchy=False)
         self.children[0].charge = -0.489
         self.children[1].charge = 0.9
         self.children[2].charge = -0.632
