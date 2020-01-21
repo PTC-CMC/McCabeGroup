@@ -7,3 +7,7 @@ Coarse grained information goes in here
 Atomistic information goes in here
 ## Scripts
 Miscellaneous scripts for membrane simulations goes here
+## Additional repositories
+### "Examining Tail and Headgroup Effects on Binary and Ternary Gel-Phase Lipid Bilayer Structure"
+* https://github.com/PTC-CMC/phospholipid_simulation_scripts
+* https://github.com/PTC-CMC/pylayer_analysis
