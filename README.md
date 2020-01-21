@@ -1,4 +1,5 @@
 # McCabeSkinGroup
+[![DOI](https://zenodo.org/badge/128414852.svg)](https://zenodo.org/badge/latestdoi/128414852)
 McCabe lab repository for ceramide and phospholipid systems
 
 ## CG
